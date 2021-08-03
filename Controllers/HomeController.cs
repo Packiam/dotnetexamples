@@ -12,6 +12,9 @@ namespace MyFirstMVCApplication.Controllers
     {
         //
         // GET: /Home/
+
+        // Home Controller
+
         [HttpGet]
         public ActionResult Index(string id, string name)
         {
