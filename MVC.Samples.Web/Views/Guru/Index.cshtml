@@ -1,0 +1,49 @@
+﻿
+@model MVC.Samples.Web.Models.UserModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Welcome Boys!</h2>
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.Code)</td>
+            <td>@Html.TextBoxFor(exp => exp.Code)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.Name, new { })</td>
+            <td>@Html.TextBoxFor(exp => exp.Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.Age)</td>
+            <td>@Html.TextBoxFor(exp => exp.Age)</td>
+        </tr>
+        @*<tr>
+                <td>@Html.LabelFor(exp => exp.Email)</td>
+                <td>@Html.TextBoxFor(exp => exp.Email)</td>
+            </tr>*@
+        <tr>
+            <td><label for="Email">Email</label></td>
+            <td><input type="text" name="Email" value="@Model.Email" /></td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.City)</td>
+            <td>@Html.DropDownListFor(exp => exp.City, Model.CityList)</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="btn1" value="Ok" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationSummary()
+            </td>
+        </tr>
+    </table>
+}
+
