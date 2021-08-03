@@ -9,6 +9,7 @@ namespace MyFirstMVCApplication.Models
 {
     public class UserModel
     {
+        //usermodel
 
         [Required]
         public string Code { get; set; }
