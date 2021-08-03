@@ -6,3 +6,5 @@
 /obj/Debug
 /.vs/MyFirstMVCApplication/v15/Server/sqlite3
 /*.user
+/DotnetSamples/bin
+/DotnetSamples/obj/Debug
