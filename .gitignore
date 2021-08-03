@@ -8,3 +8,5 @@
 /*.user
 /DotnetSamples/bin
 /DotnetSamples/obj/Debug
+bin
+obj
