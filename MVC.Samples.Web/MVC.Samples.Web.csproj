@@ -120,6 +120,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Guru\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Guru\GuruAreaRegistration.cs" />
+    <Compile Include="Areas\Ravi\RaviAreaRegistration.cs" />
     <Compile Include="Controllers\GuruController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RaviController.cs" />
@@ -143,6 +146,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Guru\Views\web.config" />
+    <Content Include="Areas\Ravi\Views\web.config" />
+    <Content Include="Areas\Guru\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Guru\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Guru\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -173,6 +181,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Guru\Models\" />
+    <Folder Include="Areas\Ravi\Controllers\" />
+    <Folder Include="Areas\Ravi\Models\" />
+    <Folder Include="Areas\Ravi\Views\Shared\" />
     <Folder Include="Views\Welcome\" />
   </ItemGroup>
   <ItemGroup>
