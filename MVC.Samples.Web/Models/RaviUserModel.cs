@@ -24,7 +24,8 @@ namespace MVC.Samples.Web.Models
         public string Email { get; set; }
         public string Marital { get; set; }
         public string City { get; set; }
-        public List<string> Interested { get; set; }
+        public string Intrested { get; set; }
+        public List<SelectListItem> InterestedList { get; set; }
         public List<SelectListItem> CityList { get; set; }
     }
 }
