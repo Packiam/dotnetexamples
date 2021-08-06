@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC.Samples.Web.Areas.Guru.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,41 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
     public class HomeController : Controller
     {
         // GET: Guru/Home
+        [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            GuruModel guruModel = new GuruModel();
+            guruModel.CityList = GetCityList();
+            guruModel.InterestedList = GetIntrestedList();
+            return View(guruModel);
+        }
+
+
+        [HttpPost]
+        public ActionResult Index(GuruModel guruuser)
+        {
+            guruuser.CityList = GetCityList();
+            guruuser.InterestedList = GetIntrestedList();
+            //DB Store the data.
+            return View(guruuser);
+        }
+
+        private List<SelectListItem> GetCityList()
+        {
+            List<SelectListItem> cityList = new List<SelectListItem>();
+            cityList.Add(new SelectListItem() { Text = "Tirunelveli", Value = "TEN" });
+            cityList.Add(new SelectListItem() { Text = "Tuticorin", Value = "TUT" });
+            cityList.Add(new SelectListItem() { Text = "Theni", Value = "THE" });
+            return cityList;
+        }
+
+        private List<SelectListItem> GetIntrestedList()
+        {
+            List<SelectListItem> intrest = new List<SelectListItem>();
+            intrest.Add(new SelectListItem() { Text = "DotNet", Value = "DOT" });
+            intrest.Add(new SelectListItem() { Text = "React", Value = "REC" });
+            intrest.Add(new SelectListItem() { Text = "Angulur", Value = "ANG" });
+            return intrest;
         }
     }
 }

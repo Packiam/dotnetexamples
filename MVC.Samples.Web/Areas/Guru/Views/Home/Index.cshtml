@@ -8,22 +8,42 @@
 
 @using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
-    <table>
+<table>
         <tr>
-            <td>@Html.LabelFor(exp => exp.Code)</td>
-            <td>@Html.TextBoxFor(exp => exp.Code)</td>
+            <td>@Html.LabelFor(exp => exp.EmployeeCode)</td>
+            <td>@Html.TextBoxFor(exp => exp.EmployeeCode)</td>
         </tr>
         <tr>
             <td>@Html.LabelFor(exp => exp.Name)</td>
             <td>@Html.TextBoxFor(exp => exp.Name)</td>
         </tr>
         <tr>
-                <td>@Html.LabelFor(exp => exp.Email)</td>
-                <td>@Html.TextBoxFor(exp => exp.Email)</td>
-            </tr>
+            <td>@Html.LabelFor(exp => exp.Email)</td>
+            <td>@Html.TextBoxFor(exp => exp.Email)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.Password)</td>
+            <td>@Html.PasswordFor(exp => exp.Password)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.ConformPassword)</td>
+            <td>@Html.PasswordFor(exp => exp.ConformPassword)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.Age)</td>
+            <td>@Html.TextBoxFor(exp => exp.Age)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.City)</td>
+            <td>@Html.DropDownListFor(exp => exp.City, Model.CityList)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.Intrested)</td>
+            <td>@Html.DropDownListFor(exp => exp.Intrested, Model.InterestedList)</td>
+        </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" name="btn1" value="Ok" />
+                <input type="submit" name="btn1" value="Register" />
             </td>
         </tr>
         <tr>
@@ -32,4 +52,4 @@
             </td>
         </tr>
     </table>
-}
+    }
