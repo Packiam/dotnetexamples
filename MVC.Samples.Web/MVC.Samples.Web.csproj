@@ -120,9 +120,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Guru\Controllers\GuruController.cs" />
+    <Compile Include="Areas\Guru\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Guru\Controllers\LoginController.cs" />
     <Compile Include="Areas\Guru\GuruAreaRegistration.cs" />
     <Compile Include="Areas\Guru\Models\GuruModel.cs" />
+    <Compile Include="Areas\Guru\Models\LoginModel.cs" />
     <Compile Include="Areas\Ravi\Controllers\RaviController.cs" />
     <Compile Include="Areas\Ravi\Models\LoginModel.cs" />
     <Compile Include="Areas\Ravi\Models\RaviUserModel.cs" />
@@ -147,15 +149,15 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Ravi\Views\web.config" />
-    <Content Include="Areas\Guru\Views\web.config" />
     <Content Include="Areas\Guru\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Guru\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Guru\Views\Guru\Index.cshtml" />
-    <Content Include="Areas\Guru\Views\Home\Index.cshtml" />
     <Content Include="Areas\Ravi\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Ravi\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Ravi\Views\Ravi\Index.cshtml" />
     <Content Include="Areas\Ravi\Views\Ravi\Login.cshtml" />
+    <Content Include="Areas\Guru\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Guru\Views\Web.config" />
+    <Content Include="Areas\Guru\Views\Login\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -184,10 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Ravi\Controllers\" />
-    <Folder Include="Areas\Ravi\Models\" />
-    <Folder Include="Areas\Ravi\Views\Shared\" />
-    <Folder Include="Areas\Guru\Models\" />
     <Folder Include="Views\Welcome\" />
   </ItemGroup>
   <ItemGroup>
