@@ -21,15 +21,19 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
             string user = login.Name;
             string pass = login.Password;
             string val = "admin";
-            if(user == val && pass == val)
+            if(user!=null && pass != null)
             {
-                return RedirectToAction("About", "Home", new { area = "" });
+                if (user == val && pass == val)
+                {
+                    return RedirectToAction("About", "Home", new { area = "" });
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Name and password are not equal";
+                    return View();
+                }
             }
-            else
-            {
-                ViewBag.ErrorMessage = "Name and password are not equal";
-                return View();
-            }
+            return View();
         }
     }
 }

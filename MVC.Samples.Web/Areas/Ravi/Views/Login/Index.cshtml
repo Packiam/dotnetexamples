@@ -6,23 +6,28 @@
 <h2>Login</h2>
 @using (Html.BeginForm("Index", "Login", FormMethod.Post))
 {
-    <table>
-        <tr>
-            <td>@Html.LabelFor(exp => exp.Name)</td>
-            <td>@Html.TextBoxFor(exp => exp.Name)</td>
+<table>
+    <tr>
+        <td>@Html.LabelFor(exp => exp.Name)</td>
+        <td>@Html.TextBoxFor(exp => exp.Name)</td>
 
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(exp => exp.Password)</td>
-            <td>@Html.TextBoxFor(exp => exp.Password)</td>
-        </tr>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(exp => exp.Password)</td>
+        <td>@Html.PasswordFor(exp => exp.Password)</td>
+    </tr>
 
-        <tr>
-            <td colspan="2">
-                <input type="submit" name="btn1" value="Ok" />
-            </td>
-        </tr>
-    </table>
+    <tr>
+        <td colspan="2">
+            <input type="submit" name="btn1" value="Login" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationSummary()
+        </td>
+    </tr>
+</table>
 }
 
-<h1 class="text-danger">@ViewBag.ErrorMessage</h1>
+<label class="text-danger">@ViewBag.ErrorMessage</label>
