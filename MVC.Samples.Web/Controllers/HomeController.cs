@@ -64,6 +64,7 @@ namespace MVC.Samples.Web.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+            ViewBag.SuccessMessage = "You logged In successfully";
 
             return View();
         }
