@@ -3,10 +3,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="control-label  col-md-offset-4">Login Page</h2>
 @using (Html.BeginForm("Index", "Login", FormMethod.Post))
 {
-<table>
+<table class="control-label  col-md-offset-4">
     <tr>
         <td>@Html.LabelFor(exp => exp.UserName)</td>
         <td>@Html.TextBoxFor(exp => exp.UserName)</td>
