@@ -131,6 +131,7 @@
     <Compile Include="Areas\Ravi\Models\LoginModel.cs" />
     <Compile Include="Areas\Ravi\Models\RaviUserModel.cs" />
     <Compile Include="Areas\Ravi\RaviAreaRegistration.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -190,6 +191,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Ravi\Views\Home\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\Welcome\" />
   </ItemGroup>
   <ItemGroup>

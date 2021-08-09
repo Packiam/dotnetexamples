@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Mvc.Filters;
+
+namespace MVC.Samples.Web.Controllers
+{
+    public class BaseController : Controller
+    {
+        // GET: Base
+        protected override void OnAuthentication(AuthenticationContext filterContext)
+        {
+            string name = Session["LOGIN_USERNAME"]?.ToString();
+            filterContext.HttpContext.User = new ClaimsPrincipal(new CustomIdentity(name));
+
+            //var a = new ClaimsPrincipal(new CustomIdentity(name));
+            //var claims = new List<Claim> { new Claim("Role", "SomeValue") };
+            base.OnAuthentication(filterContext);
+        }
+    }
+
+
+    public class CustomIdentity : IIdentity
+    {
+        private readonly string _name;
+        public CustomIdentity(string name) { this._name = name; }
+
+        public string Name { get { return _name; } }
+
+        public string AuthenticationType { get { return "MyCustom"; } }
+
+        public bool IsAuthenticated { get { return (string.IsNullOrEmpty(this.Name) == false); } }
+    }
+
+}
