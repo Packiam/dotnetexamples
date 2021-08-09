@@ -15,12 +15,24 @@ namespace MVC.Samples.Web.Controllers
         protected override void OnAuthentication(AuthenticationContext filterContext)
         {
             string name = Session["LOGIN_USERNAME"]?.ToString();
-            filterContext.HttpContext.User = new ClaimsPrincipal(new CustomIdentity(name));
+            if (!string.IsNullOrEmpty(name)) { filterContext.HttpContext.User = new ClaimsPrincipal(new CustomIdentity(name)); }
 
             //var a = new ClaimsPrincipal(new CustomIdentity(name));
             //var claims = new List<Claim> { new Claim("Role", "SomeValue") };
             base.OnAuthentication(filterContext);
         }
+
+        public ActionResult ErrorView(string message)
+        {
+            ViewBag.Message = message;
+            return View("Error");
+        }
+        public ActionResult ErrorView(Exception ex)
+        {
+            ViewBag.Message = ex.Message;
+            return View("Error");
+        }
+
     }
 
 

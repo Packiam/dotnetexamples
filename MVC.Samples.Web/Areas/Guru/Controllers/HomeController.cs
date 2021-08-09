@@ -14,9 +14,21 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         public ActionResult Index()
         {
             GuruModel guruModel = new GuruModel();
-            guruModel.CityList = GetCityList();
-            guruModel.InterestedList = GetIntrestedList();
-            return View(guruModel);
+            try
+            {
+                guruModel.CityList = GetCityList();
+                guruModel.InterestedList = GetIntrestedList();
+                return View(guruModel);
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Message = ex.Message.ToString();
+                return View("Error");
+            }
+            finally
+            {
+                guruModel = null;
+            }
         }
 
 

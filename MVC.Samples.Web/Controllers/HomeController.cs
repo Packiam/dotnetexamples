@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace MVC.Samples.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {  
         
         // GET: /Home/
@@ -20,6 +20,7 @@ namespace MVC.Samples.Web.Controllers
                 userModel = new UserModel();
                 userModel.CityList = GetCityList();
 
+                string session = Session["Session_MyData"]?.ToString();
 
                 Console.WriteLine(id);
                 Console.WriteLine("I am getting started...");
@@ -60,9 +61,11 @@ namespace MVC.Samples.Web.Controllers
             return View();
         }
 
-
+        [Authorize]
         public ActionResult About()
         {
+            string val1 = TempData["MyData"]?.ToString();
+            string session = Session["Session_MyData"]?.ToString();
             ViewBag.Message = "Your application description page.";
             ViewBag.SuccessMessage = "You logged In successfully";
 
@@ -72,7 +75,8 @@ namespace MVC.Samples.Web.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
+            string val1 = TempData["MyData"]?.ToString();
+            string session = Session["Session_MyData"]?.ToString();
             return View();
         }
     }
