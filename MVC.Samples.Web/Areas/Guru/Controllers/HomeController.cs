@@ -16,8 +16,6 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
             GuruModel guruModel = new GuruModel();
             try
             {
-                guruModel.CityList = GetCityList();
-                guruModel.InterestedList = GetIntrestedList();
                 return View(guruModel);
             }
             catch(Exception ex)
@@ -35,10 +33,11 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         [HttpPost]
         public ActionResult Index(GuruModel guruuser)
         {
-            guruuser.CityList = GetCityList();
-            guruuser.InterestedList = GetIntrestedList();
+            Session["UserId"] = guruuser.Name;
+            Session["Password"] = guruuser.Password;
+            return RedirectToAction("Contact", "Home", new { area = "" });
             //DB Store the data.
-            return View(guruuser);
+
         }
 
         private List<SelectListItem> GetCityList()

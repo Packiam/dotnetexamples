@@ -15,7 +15,7 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         {
             try
             {
-                if (!Session.IsNewSession) { Session.Clear(); }
+                ///if (!Session.IsNewSession) { Session.Clear(); }
                 TempData["MyData"] = "Guru";
                 Session["Session_MyData"] = "Guru Session";
                 return View();
@@ -34,13 +34,16 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                 string user = login.UserName;
                 string pass = login.Password;
 
-                string val = "admin";
+                String UserId = Session["UserId"]?.ToString();
+                String password = Session["Password"]?.ToString();
+
+                //string val = "admin";
                 string val1 = TempData["MyData"]?.ToString();
                 string session = Session["Session_MyData"]?.ToString();
                 if (user == null || pass == null) { return View(); }
-                if (user == val && pass == val) { Session["LOGIN_USERNAME"] = "Guru, Admin"; return RedirectToAction("About", "Home", new { area = "" }); }
+                if (user == UserId && pass == password) { Session["LOGIN_USERNAME"] = "Guru, Admin"; return RedirectToAction("About", "Home", new { area = "" }); }
 
-                ViewBag.ErrorMessage = "Name and password are not equal";
+                ViewBag.ErrorMessage = "Wrong Password";
                 return View();
             }
             catch (Exception ex)

@@ -8,8 +8,8 @@ namespace MVC.Samples.Web.Areas.Guru.Models
 {
     public class LoginModel
     {
-        [Required(ErrorMessage = "Email is requierd")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Required(ErrorMessage = "UserName requierd")]
+       
         public string UserName{ get; set; }
         [Required(ErrorMessage ="Password is required")]
         public string Password { get; set; }
