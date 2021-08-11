@@ -33,14 +33,7 @@
             <td>@Html.LabelFor(exp => exp.Age)</td>
             <td>@Html.TextBoxFor(exp => exp.Age)</td>
         </tr>
-        <tr>
-            <td>@Html.LabelFor(exp => exp.City)</td>
-            <td>@Html.DropDownListFor(exp => exp.City, Model.CityList)</td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(exp => exp.Intrested)</td>
-            <td>@Html.DropDownListFor(exp => exp.Intrested, Model.InterestedList)</td>
-        </tr>
+
         <tr>
             <td colspan="2">
                 <input type="submit" name="btn1" value="Ok" />
@@ -53,3 +46,4 @@
         </tr>
     </table>
 }
+
