@@ -13,5 +13,7 @@ namespace MVC.Samples.Web.Areas.Guru.Models
         public string UserName{ get; set; }
         [Required(ErrorMessage ="Password is required")]
         public string Password { get; set; }
+        [Required]
+        public string EmployeeCode { get; set; }
     }
 }

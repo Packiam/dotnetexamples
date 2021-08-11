@@ -120,11 +120,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Guru\Controllers\EmployeeLoginController.cs" />
     <Compile Include="Areas\Guru\Controllers\HomeController.cs" />
     <Compile Include="Areas\Guru\Controllers\LoginController.cs" />
     <Compile Include="Areas\Guru\GuruAreaRegistration.cs" />
     <Compile Include="Areas\Guru\Models\GuruModel.cs" />
     <Compile Include="Areas\Guru\Models\LoginModel.cs" />
+    <Compile Include="Areas\Ravi\Controllers\EmployeeLoginController.cs" />
     <Compile Include="Areas\Ravi\Controllers\HomeController.cs" />
     <Compile Include="Areas\Ravi\Controllers\LoginController.cs" />
     <Compile Include="Areas\Ravi\Models\LoginModel.cs" />
@@ -160,6 +162,10 @@
     <Content Include="Areas\Guru\Views\Login\Index.cshtml" />
     <Content Include="Areas\Ravi\Views\Login\Index.cshtml" />
     <Content Include="Areas\Ravi\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Guru\Views\EmployeeLogin\Index.cshtml" />
+    <Content Include="Areas\Guru\Views\EmployeeLogin\Employee.cshtml" />
+    <Content Include="Areas\Ravi\Views\EmployeeLogin\Index.cshtml" />
+    <Content Include="Areas\Ravi\Views\EmployeeLogin\Employee.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

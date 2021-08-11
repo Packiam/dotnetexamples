@@ -36,13 +36,13 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
 
                 String UserId = Session["UserId"]?.ToString();
                 String password = Session["Password"]?.ToString();
+             
 
                 //string val = "admin";
                 string val1 = TempData["MyData"]?.ToString();
                 string session = Session["Session_MyData"]?.ToString();
                 if (user == null || pass == null) { return View(); }
                 if (user == UserId && pass == password) { Session["LOGIN_USERNAME"] = "Guru, Admin"; return RedirectToAction("About", "Home", new { area = "" }); }
-
                 ViewBag.ErrorMessage = "Wrong Password";
                 return View();
             }
@@ -51,5 +51,9 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                 return ErrorView(ex);
             }
         }
+        
+     
+        
+            
     }
 }

@@ -1,0 +1,37 @@
+﻿@model MVC.Samples.Web.Areas.Ravi.Models.LoginModel
+@{
+    ViewBag.Title = "EmployeeLogin";
+}
+
+<h2 class="control-label  col-md-offset-4">Employee Login</h2>
+
+@using (Html.BeginForm("Index", "EmployeeLogin", FormMethod.Post))
+{
+    <table class="control-label  col-md-offset-4">
+        <tr>
+            <td>@Html.LabelFor(exp => exp.EmployeeCode)</td>
+            <td>@Html.TextBoxFor(exp => exp.EmployeeCode)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.Password)</td>
+            <td>@Html.PasswordFor(exp => exp.Password)</td>
+        </tr>
+        <tr>
+            <td><label class="text-danger">@ViewBag.ErrorMessage</label></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="btn1" value="Login" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1">
+                @Html.ValidationSummary()
+            </td>
+        </tr>
+    </table>
+}
+
+
+

@@ -35,6 +35,7 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         {
             Session["UserId"] = guruuser.Name;
             Session["Password"] = guruuser.Password;
+            Session["EmployeeId"] = guruuser.EmployeeCode;
             return RedirectToAction("Contact", "Home", new { area = "" });
             //DB Store the data.
 
