@@ -6,6 +6,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Filters;
+using static MVC.Samples.Web.Controllers.CustomAuthorizeAttribute;
 
 namespace MVC.Samples.Web.Controllers
 {
@@ -35,7 +36,25 @@ namespace MVC.Samples.Web.Controllers
 
     }
 
-
+    public class CustomAuthorizeAttribute : AuthorizeAttribute
+    {
+        private readonly string[] allowedroles;
+        public CustomAuthorizeAttribute(params string[] roles)
+        {
+            this.allowedroles = roles;
+        }
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
+        {
+            bool authorize = false;
+            string name =Session["LOGIN_USERNAME"]?.ToString();
+            if (!string.IsNullOrEmpty(name))
+            {
+                 
+                authorize = true;
+            }
+            return authorize;
+        }
+    }
     public class CustomIdentity : IIdentity
     {
         private readonly string _name;

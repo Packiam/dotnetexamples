@@ -15,7 +15,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         {
             try
             {
-                ///if (!Session.IsNewSession) { Session.Clear(); }
+               
                 return View();
             }
             catch (Exception ex)
@@ -23,6 +23,8 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
                 return ErrorView(ex);
             }
         }
+
+
         [HttpPost]
         public ActionResult Index(LoginModel login)
         {
@@ -31,13 +33,14 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
                 string user = login.Name;
                 string pass = login.Password;
 
-                String UserId = Session["UserId"]?.ToString();
-                String employeeid = Session["EmployeeId"]?.ToString();
+                String registeredName = Session["UserId"]?.ToString();
+                String registerdEmpCode = Session["EmployeeId"]?.ToString();
 
                 //string val = "admin";
                 if (user == null || pass == null) { return View(); }
-                if (user == UserId && pass == employeeid) { Session["LOGIN_USERNAME"] = "Ravi, Admin"; return RedirectToAction("Employee", "EmployeeLogin", new { area = "Ravi" }); }
-                ViewBag.ErrorMessage = "Wrong Password";
+                if (user == registeredName && pass == registerdEmpCode) { Session["STUDENT_USER"] = "Ravi, Admin"; return RedirectToAction("Employee", "EmployeeLogin", new { area = "" }); }
+                
+                ViewBag.ErrorMessage = "Invalid Credentials";
                 return View();
             }
             catch (Exception ex)
@@ -45,7 +48,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
                 return ErrorView(ex);
             }
         }
-        [Authorize]
+    
         public ActionResult Employee()
         {
             return View();

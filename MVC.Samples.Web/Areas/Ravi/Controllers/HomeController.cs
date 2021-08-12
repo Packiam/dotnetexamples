@@ -44,12 +44,21 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
             {
                 Session["Name"] = raviuser.Name;
                 Session["Password"] = raviuser.Password;
-                return RedirectToAction("Contact", "Home", new { area = "" });
+                return RedirectToAction("Contact", "Home", new { area = "Ravi" });
             }
 
             return View();
         }
 
-       
+       public ActionResult About()
+        {
+            return View();
+        }
+
+        [CustomAuthorize]
+        public ActionResult Contact()
+        {
+            return View();
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
                 string registedPassword = Session["Password"]?.ToString();
 
                 if(user == null || pass == null) { return View(); }
-                if (user == registeduser && pass == registedPassword) { Session["LOGIN_USERNAME"] = "ravi,admin"; return RedirectToAction("About", "Home", new { area = "" }); }
+                if (user == registeduser && pass == registedPassword) { Session["LOGIN_USERNAME"] = "ravi,admin"; return RedirectToAction("Contact", "Home", new { area = "Ravi" }); }
 
 
                 ViewBag.ErrorMessage = "Invalid Credentials";
