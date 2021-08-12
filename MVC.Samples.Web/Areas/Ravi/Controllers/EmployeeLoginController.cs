@@ -30,15 +30,15 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         {
             try
             {
-                string user = login.Name;
+                string empId = login.EmployeeCode;
                 string pass = login.Password;
 
-                String registeredName = Session["UserId"]?.ToString();
-                String registerdEmpCode = Session["EmployeeId"]?.ToString();
+                String registeredPassword = Session["Password"]?.ToString();
+                String registeredEmpCode = Session["EmployeeId"]?.ToString();
 
                 //string val = "admin";
-                if (user == null || pass == null) { return View(); }
-                if (user == registeredName && pass == registerdEmpCode) { Session["STUDENT_USER"] = "Ravi, Admin"; return RedirectToAction("Employee", "EmployeeLogin", new { area = "" }); }
+                if (empId == null || pass == null) { return View(); }
+                if (empId == registeredEmpCode && pass == registeredPassword) { Session["STUDENT_USER"] = "Ravi, Admin"; return RedirectToAction("Employee", "EmployeeLogin", new { area = "Ravi" }); }
                 
                 ViewBag.ErrorMessage = "Invalid Credentials";
                 return View();

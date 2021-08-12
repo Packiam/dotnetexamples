@@ -44,6 +44,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
             {
                 Session["Name"] = raviuser.Name;
                 Session["Password"] = raviuser.Password;
+                Session["EmployeeId"] = raviuser.EmployeeCode;
                 return RedirectToAction("Contact", "Home", new { area = "Ravi" });
             }
 
@@ -55,7 +56,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
             return View();
         }
 
-        [CustomAuthorize]
+        
         public ActionResult Contact()
         {
             return View();
