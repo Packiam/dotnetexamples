@@ -16,8 +16,6 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
             try
             {
                 ///if (!Session.IsNewSession) { Session.Clear(); }
-                TempData["MyData"] = "Guru";
-                Session["Session_MyData"] = "Guru Session";
                 return View();
             }
             catch (Exception ex)
@@ -30,18 +28,15 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         {
             try
             {
-                string user = login.UserName;
+                string empId = login.EmployeeCode;
                 string pass = login.Password;
 
-                String UserId = Session["UserId"]?.ToString();
-                String employeeid = Session["EmployeeId"]?.ToString();
+                String password = Session["Password"]?.ToString();
+                String employeeId = Session["EmployeeId"]?.ToString();
 
-                //string val = "admin";
-                string val1 = TempData["MyData"]?.ToString();
-                string session = Session["Session_MyData"]?.ToString();
-                if (user == null || pass == null) { return View(); }
-                if (user == UserId && pass == employeeid) { Session["LOGIN_USERNAME"] = "Guru, Admin"; return RedirectToAction("Employee", "EmployeeLogin", new { area = "Guru" }); }
-                ViewBag.ErrorMessage = "Wrong Password";
+                if (empId == null || pass == null) { return View(); }
+                if (empId == employeeId && pass == password) { Session["LOGIN_USERNAME"] = "Guru, Admin"; return RedirectToAction("Employee", "EmployeeLogin", new { area = "Guru" }); }
+                ViewBag.ErrorMessage = "Wrong UserName or Password";
                 return View();
             }
             catch (Exception ex)
