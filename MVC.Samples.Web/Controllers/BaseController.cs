@@ -38,21 +38,32 @@ namespace MVC.Samples.Web.Controllers
 
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
-        private readonly string[] allowedroles;
+        private readonly string[] allowedRoles;
         public CustomAuthorizeAttribute(params string[] roles)
         {
-            this.allowedroles = roles;
+            this.allowedRoles = roles;
         }
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             bool authorize = false;
-            string name =Session["LOGIN_USERNAME"]?.ToString();
-            if (!string.IsNullOrEmpty(name))
-            {
-                 
-                authorize = true;
-            }
+            string name = httpContext.Session["Role"]?.ToString();
+            if(allowedRoles.Contains(name)) { authorize = true; }
             return authorize;
+        }
+    }
+    public class CustomAuthorize1Attribute : ActionFilterAttribute
+    {
+        private readonly string[] allowedRoles;
+        public CustomAuthorize1Attribute(params string[] roles)
+        {
+            this.allowedRoles = roles;
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            string name = filterContext.HttpContext.Session["Role"]?.ToString();
+            if (!allowedRoles.Contains(name)) { filterContext.Result = new ViewResult() { ViewName = "AuthorizeError" }; }
+            base.OnActionExecuting(filterContext);
         }
     }
     public class CustomIdentity : IIdentity

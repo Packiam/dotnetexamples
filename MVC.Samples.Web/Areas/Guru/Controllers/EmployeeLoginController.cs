@@ -49,7 +49,10 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                 return ErrorView(ex);
             }
         }
+
+
         [Authorize]
+        [CustomAuthorize1("Admin", "EndUser")]
         public ActionResult Employee()
         {
             return View();

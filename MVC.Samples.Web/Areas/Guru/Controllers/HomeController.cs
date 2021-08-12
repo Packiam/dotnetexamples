@@ -1,4 +1,5 @@
 ﻿using MVC.Samples.Web.Areas.Guru.Models;
+using MVC.Samples.Web.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,14 +32,15 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
 
 
         [HttpPost]
-        public ActionResult Index(GuruModel guruuser)
+        public ActionResult Index(GuruModel guruModel)
         {
-            Session["UserId"] = guruuser.Name;
-            Session["Password"] = guruuser.Password;
-            Session["EmployeeId"] = guruuser.EmployeeCode;
+            UserSessionHandler.AddUserSession(guruModel);
+            Session["UserId"] = guruModel.Name;
+            Session["Password"] = guruModel.Password;
+            Session["EmployeeId"] = guruModel.EmployeeCode;
+            Session["Role"] = guruModel.EmployeeCode;
             return RedirectToAction("Contact", "Home", new { area = "" });
             //DB Store the data.
-
         }
 
         private List<SelectListItem> GetCityList()

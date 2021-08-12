@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MVC.Samples.Web.Areas.Guru.Models;
 using MVC.Samples.Web.Controllers;
+using MVC.Samples.Web.Helper;
 
 namespace MVC.Samples.Web.Areas.Guru.Controllers
 {
@@ -29,20 +30,28 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         [HttpPost]
         public ActionResult Index(LoginModel login)
         {
+            GuruModel model;
             try
             {
                 string user = login.UserName;
                 string pass = login.Password;
+                if (user == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
 
-                String UserId = Session["UserId"]?.ToString();
-                String password = Session["Password"]?.ToString();
-             
+                model = UserSessionHandler.ReadUserSession(user);
+                if (model == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
+                string userId = model.Name;
+                string password = model.Password;
 
+                //string userId = Session["UserId"]?.ToString();
+                //string password = Session["Password"]?.ToString();
                 //string val = "admin";
-                string val1 = TempData["MyData"]?.ToString();
-                string session = Session["Session_MyData"]?.ToString();
+
                 if (user == null || pass == null) { return View(); }
-                if (user == UserId && pass == password) { Session["LOGIN_USERNAME"] = "Guru, Admin"; return RedirectToAction("About", "Home", new { area = "" }); }
+                if (user == userId && pass == password)
+                {
+                    Session["LOGIN_USERNAME"] = "Guru, Admin";
+                    return RedirectToAction("About", "Home", new { area = "" });
+                }
                 ViewBag.ErrorMessage = "Wrong Password";
                 return View();
             }

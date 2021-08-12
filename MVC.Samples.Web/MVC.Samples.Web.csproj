@@ -168,6 +168,7 @@
     <Content Include="Areas\Ravi\Views\EmployeeLogin\Employee.cshtml" />
     <Content Include="Areas\Ravi\Views\Home\About.cshtml" />
     <Content Include="Areas\Ravi\Views\Home\Contact.cshtml" />
+    <Content Include="Areas\Guru\Views\Shared\AuthorizeError.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
