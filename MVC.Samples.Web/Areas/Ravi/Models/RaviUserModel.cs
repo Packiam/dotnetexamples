@@ -8,6 +8,7 @@ using CompareAttribute = System.ComponentModel.DataAnnotations.CompareAttribute;
 
 namespace MVC.Samples.Web.Areas.Ravi.Models
 {
+    [Serializable]
     public class RaviUserModel
     {
         [Required]

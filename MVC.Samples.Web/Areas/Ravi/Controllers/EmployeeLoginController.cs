@@ -38,7 +38,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
 
                 //string val = "admin";
                 if (empId == null || pass == null) { return View(); }
-                if (empId == registeredEmpCode && pass == registeredPassword) { Session["STUDENT_USER"] = "Ravi, Admin"; return RedirectToAction("Employee", "EmployeeLogin", new { area = "Ravi" }); }
+                if (empId == registeredEmpCode && pass == registeredPassword) { Session["LOGIN_USERNAME"] = "Ravi, Admin"; return RedirectToAction("Employee", "EmployeeLogin", new { area = "Ravi" }); }
                 
                 ViewBag.ErrorMessage = "Invalid Credentials";
                 return View();
@@ -48,7 +48,9 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
                 return ErrorView(ex);
             }
         }
-    
+
+        [Authorize]
+        [CustomAuthorize1("Admin", "EndUser")]
         public ActionResult Employee()
         {
             return View();

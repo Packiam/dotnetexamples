@@ -1,4 +1,5 @@
-﻿using MVC.Samples.Web.Areas.Ravi.Models;
+﻿using MVC.Samples.Web.Areas.Ravi.Helper;
+using MVC.Samples.Web.Areas.Ravi.Models;
 using MVC.Samples.Web.Controllers;
 using System;
 using System.Collections.Generic;
@@ -28,17 +29,26 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         [HttpPost]
         public ActionResult Index(LoginModel login)
         {
+            RaviUserModel model;
             try
             {
                 string user = login.Name;
                 string pass = login.Password;
 
-                string registeduser = Session["Name"]?.ToString();
-                string registedPassword = Session["Password"]?.ToString();
+                if(user == null) { ViewBag.ErrorMessage = "Wrong Usename";return View(); }
 
+                model = SessionHandler.ReadUserSession(user);
+                if(model == null) { ViewBag.ErrorMessage = "Wrong Usename"; return View(); }
+
+                string userId = model.Name;
+                string password = model.Password;
+                
                 if(user == null || pass == null) { return View(); }
-                if (user == registeduser && pass == registedPassword) { Session["LOGIN_USERNAME"] = "ravi,admin"; return RedirectToAction("Contact", "Home", new { area = "Ravi" }); }
-
+                if (user == userId && pass == password) 
+                { 
+                    Session["LOGIN_USERNAME"] = "ravi,admin"; 
+                    return RedirectToAction("Contact", "Home", new { area = "Ravi" }); 
+                }
 
                 ViewBag.ErrorMessage = "Invalid Credentials";
                 return View();

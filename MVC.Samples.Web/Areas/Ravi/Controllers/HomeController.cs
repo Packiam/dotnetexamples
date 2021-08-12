@@ -1,5 +1,6 @@
 ﻿using MVC.Samples.Web.Areas.Ravi.Models;
 using MVC.Samples.Web.Controllers;
+using MVC.Samples.Web.Areas.Ravi.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,21 +35,16 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
 
 
         [HttpPost]
-        public ActionResult Index(RaviUserModel raviuser)
+        public ActionResult Index(RaviUserModel raviUser)
         {
+            SessionHandler.AddUserSession(raviUser);
 
-            string pass = raviuser.Password;
-            string confpass = raviuser.ConformPassword;
-            
-            if(pass == confpass)
-            {
-                Session["Name"] = raviuser.Name;
-                Session["Password"] = raviuser.Password;
-                Session["EmployeeId"] = raviuser.EmployeeCode;
-                return RedirectToAction("Contact", "Home", new { area = "Ravi" });
-            }
+            Session["UserId"] = raviUser.Name;
+            Session["Password"] = raviUser.Password;
+            Session["EmployeeId"] = raviUser.EmployeeCode;
+            Session["Role"] = raviUser.EmployeeCode;
 
-            return View();
+            return RedirectToAction("Contact", "Home", new { area = "Ravi" });
         }
 
        public ActionResult About()

@@ -129,6 +129,7 @@
     <Compile Include="Areas\Ravi\Controllers\EmployeeLoginController.cs" />
     <Compile Include="Areas\Ravi\Controllers\HomeController.cs" />
     <Compile Include="Areas\Ravi\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Ravi\Helper\SessionHandler.cs" />
     <Compile Include="Areas\Ravi\Models\LoginModel.cs" />
     <Compile Include="Areas\Ravi\Models\RaviUserModel.cs" />
     <Compile Include="Areas\Ravi\RaviAreaRegistration.cs" />
@@ -170,6 +171,7 @@
     <Content Include="Areas\Ravi\Views\Home\About.cshtml" />
     <Content Include="Areas\Ravi\Views\Home\Contact.cshtml" />
     <Content Include="Areas\Guru\Views\Shared\AuthorizeError.cshtml" />
+    <Content Include="Areas\Ravi\Views\Shared\AuthorizeError.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
