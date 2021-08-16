@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static MVC.Samples.Web.Areas.Ravi.Helper.SessionHandler;
 
 namespace MVC.Samples.Web.Areas.Ravi.Controllers
 {
@@ -30,27 +31,30 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         public ActionResult Index(LoginModel login)
         {
             RaviUserModel model;
+            ILoginSession loginSession;
+
             try
             {
                 string user = login.Name;
                 string pass = login.Password;
+                if (user == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
 
-                if(user == null) { ViewBag.ErrorMessage = "Wrong Usename";return View(); }
+                loginSession = new UserLoginProces();
 
-                model = SessionHandler.ReadUserSession(user);
-                if(model == null) { ViewBag.ErrorMessage = "Wrong Usename"; return View(); }
+                model = loginSession.ReadUserSession(user);
 
+                if (model == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
                 string userId = model.Name;
                 string password = model.Password;
-                
-                if(user == null || pass == null) { return View(); }
-                if (user == userId && pass == password) 
-                { 
-                    Session["LOGIN_USERNAME"] = "ravi,admin"; 
-                    return RedirectToAction("Contact", "Home", new { area = "Ravi" }); 
-                }
 
-                ViewBag.ErrorMessage = "Invalid Credentials";
+
+                if (user == null || pass == null) { return View(); }
+                if (user == userId && pass == password)
+                {
+                    Session["LOGIN_USERNAME"] = "Ravi, Admin";
+                    return RedirectToAction("About", "Home", new { area = "Ravi" });
+                }
+                ViewBag.ErrorMessage = "Wrong Password";
                 return View();
             }
             catch (Exception ex)
@@ -58,5 +62,6 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
                 return ErrorView(ex);
             }
         }
+
     }
 }
