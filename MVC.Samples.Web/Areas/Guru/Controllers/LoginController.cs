@@ -31,13 +31,14 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         public ActionResult Index(LoginModel login)
         {
             GuruModel model;
+            ILoginSession loginSession;
             try
             {
                 string user = login.UserName;
                 string pass = login.Password;
-                if (user == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
-
-                model = UserSessionHandler.ReadUserSession(user);
+                //if (user == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
+                loginSession = new UserLoginProcess();
+                model = loginSession.ReadUserSession(user);
                 if (model == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
                 string userId = model.Name;
                 string password = model.Password;

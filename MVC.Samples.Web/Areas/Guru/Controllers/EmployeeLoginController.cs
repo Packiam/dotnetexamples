@@ -28,6 +28,7 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         public ActionResult Index(LoginModel login)
         {
             GuruModel model;
+            ILoginSession loginSession;
             try
             {
                 string empId = login.EmployeeCode;
@@ -35,7 +36,8 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
 
                 //String password = Session["Password"]?.ToString();
                 //String employeeId = Session["EmployeeId"]?.ToString();
-                model = UserSessionHandler.ReadUserSession(empId,pass);
+                loginSession = new EmployeeLoginProcess();
+                model = loginSession.ReadUserSession(empId);
                 if (model == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
                 string employeeId = model.EmployeeCode;
                 string password = model.Password;
