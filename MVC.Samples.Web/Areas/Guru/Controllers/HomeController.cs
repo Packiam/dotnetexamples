@@ -35,6 +35,7 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         public ActionResult Index(GuruModel guruModel)
         {
             UserSessionHandler.AddUserSession(guruModel);
+
             Session["UserId"] = guruModel.Name;
             Session["Password"] = guruModel.Password;
             Session["EmployeeId"] = guruModel.EmployeeCode;

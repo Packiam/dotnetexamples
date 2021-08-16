@@ -28,14 +28,18 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         public ActionResult Index(LoginModel login)
         {
             GuruModel model;
+            ILoginSession loginSession;
             try
             {
+                loginSession = new EmployeeLoginProcess();
                 string empId = login.EmployeeCode;
                 string pass = login.Password;
 
                 //String password = Session["Password"]?.ToString();
                 //String employeeId = Session["EmployeeId"]?.ToString();
-                model = UserSessionHandler.ReadUserSession(empId,pass);
+                //model = UserSessionHandler.ReadUserSession(empId,pass);
+                model = loginSession.ReadUserSession(empId);
+
                 if (model == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
                 string employeeId = model.EmployeeCode;
                 string password = model.Password;

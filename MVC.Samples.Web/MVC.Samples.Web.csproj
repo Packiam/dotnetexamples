@@ -172,6 +172,7 @@
     <Content Include="Areas\Ravi\Views\Home\Contact.cshtml" />
     <Content Include="Areas\Guru\Views\Shared\AuthorizeError.cshtml" />
     <Content Include="Areas\Ravi\Views\Shared\AuthorizeError.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
