@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MVC.Samples.Web.Areas.Guru.Models;
 using MVC.Samples.Web.Controllers;
+using MVC.Samples.Web.Helper;
 
 namespace MVC.Samples.Web.Areas.Guru.Controllers
 {
@@ -26,14 +27,18 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         [HttpPost]
         public ActionResult Index(LoginModel login)
         {
+            GuruModel model;
             try
             {
                 string empId = login.EmployeeCode;
                 string pass = login.Password;
 
-                String password = Session["Password"]?.ToString();
-                String employeeId = Session["EmployeeId"]?.ToString();
-
+                //String password = Session["Password"]?.ToString();
+                //String employeeId = Session["EmployeeId"]?.ToString();
+                model = UserSessionHandler.ReadUserSession(empId,pass);
+                if (model == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
+                string employeeId = model.EmployeeCode;
+                string password = model.Password;
                 if (empId == null || pass == null) { return View(); }
                 if (empId == employeeId && pass == password) { Session["LOGIN_USERNAME"] = "Guru, Admin"; return RedirectToAction("Employee", "EmployeeLogin", new { area = "Guru" }); }
                 ViewBag.ErrorMessage = "Wrong UserName or Password";

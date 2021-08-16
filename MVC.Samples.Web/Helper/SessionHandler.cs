@@ -7,7 +7,7 @@ namespace MVC.Samples.Web.Helper
     public static class UserSessionHandler
     {
         public static void AddUserSession(GuruModel model)
-        {
+         {
             List<GuruModel> models;
             try
             {
@@ -29,6 +29,20 @@ namespace MVC.Samples.Web.Helper
                 if (HttpContext.Current.Session["USER_DATA"] == null) { return null; }
                 models = (List<GuruModel>)HttpContext.Current.Session["USER_DATA"];
                 return models.Find(exp => exp.Name == userId);
+            }
+            finally
+            {
+                models = null;
+            }
+        }
+        public static GuruModel ReadUserSession(string employeeId,string password)
+        {
+            List<GuruModel> models;
+            try
+            {
+                if (HttpContext.Current.Session["USER_DATA"] == null) { return null; }
+                models = (List<GuruModel>)HttpContext.Current.Session["USER_DATA"];
+                return models.Find(exp => exp.EmployeeCode == employeeId);
             }
             finally
             {

@@ -61,7 +61,7 @@ namespace MVC.Samples.Web.Controllers
             return View();
         }
 
-        [Authorize]
+        [CustomAuthorize1]
         public ActionResult About()
         {
             string val1 = TempData["MyData"]?.ToString();
