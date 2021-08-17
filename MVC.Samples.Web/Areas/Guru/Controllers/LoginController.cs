@@ -28,7 +28,7 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(LoginModel login)
+        public ActionResult Index_Interface(LoginModel login)
         {
             GuruModel model;
             ILoginSession loginSession;
@@ -63,9 +63,46 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                 return ErrorView(ex);
             }
         }
-        
-     
-        
-            
+
+        [HttpPost]
+        public ActionResult Index(LoginModel login)
+        {
+            GuruModel model;
+            ALoginProcess loginSession;
+            try
+            {
+                loginSession = new UserLoginAbstractProcess();
+                string user = login.UserName;
+                string pass = login.Password;
+                if (user == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
+
+                //model = UserSessionHandler.ReadUserSession(user);
+                model = loginSession.ReadUserSession(user);
+                if (model == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
+                string userId = model.Name;
+                string password = model.Password;
+
+                //string userId = Session["UserId"]?.ToString();
+                //string password = Session["Password"]?.ToString();
+                //string val = "admin";
+
+                if (user == null || pass == null) { return View(); }
+                if (user == userId && pass == password)
+                {
+                    Session["LOGIN_USERNAME"] = "Guru, Admin";
+                    return RedirectToAction("About", "Home", new { area = "" });
+                }
+                ViewBag.ErrorMessage = "Wrong Password";
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return ErrorView(ex);
+            }
+        }
+
+
+
+
     }
 }

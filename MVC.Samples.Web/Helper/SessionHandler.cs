@@ -52,12 +52,10 @@ namespace MVC.Samples.Web.Helper
 
     }
 
-
     public interface ILoginSession
     {
         GuruModel ReadUserSession(string userId);
     }
-
     public class CommonUserSession
     {
         public void AddUserSession(GuruModel model)
@@ -76,8 +74,6 @@ namespace MVC.Samples.Web.Helper
             }
         }
     }
-
-
     public class UserLoginProcess : CommonUserSession, ILoginSession
     {
         public GuruModel ReadUserSession(string userId)
@@ -95,7 +91,6 @@ namespace MVC.Samples.Web.Helper
             }
         }
     }
-
     public class EmployeeLoginProcess : CommonUserSession, ILoginSession
     {
         public GuruModel ReadUserSession(string userId)
@@ -113,4 +108,68 @@ namespace MVC.Samples.Web.Helper
             }
         }
     }
+
+
+
+    public abstract class ALoginProcess
+    {
+        public virtual void AddUserSession(GuruModel model)
+        {
+            List<GuruModel> models;
+            try
+            {
+                if (HttpContext.Current.Session["USER_DATA"] == null) { models = new List<GuruModel>(); }
+                else { models = (List<GuruModel>)HttpContext.Current.Session["USER_DATA"]; }
+                models.Add(model);
+                HttpContext.Current.Session["USER_DATA"] = models;
+            }
+            finally
+            {
+                models = null;
+            }
+        }
+
+        public abstract GuruModel ReadUserSession(string userId);
+    }
+    public class UserLoginAbstractProcess : ALoginProcess
+    {
+        public override GuruModel ReadUserSession(string userId)
+        {
+            List<GuruModel> models;
+            try
+            {
+                if (HttpContext.Current.Session["USER_DATA"] == null) { return null; }
+                models = (List<GuruModel>)HttpContext.Current.Session["USER_DATA"];
+                return models.Find(exp => exp.Name == userId);
+            }
+            finally
+            {
+                models = null;
+            }
+        }
+
+        public override void AddUserSession(GuruModel model)
+        {
+
+            base.AddUserSession(model);
+        }
+    }
+    public class EmpLoginAbstractProcess : ALoginProcess
+    {
+        public override GuruModel ReadUserSession(string code)
+        {
+            List<GuruModel> models;
+            try
+            {
+                if (HttpContext.Current.Session["USER_DATA"] == null) { return null; }
+                models = (List<GuruModel>)HttpContext.Current.Session["USER_DATA"];
+                return models.Find(exp => exp.EmployeeCode == code);
+            }
+            finally
+            {
+                models = null;
+            }
+        }
+    }
+
 }
