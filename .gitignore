@@ -13,3 +13,5 @@ obj
 /.vs/MVC.Samples/v15
 /.vs
 /MVC.Samples.Web/*.user
+*.pubxml
+*.user
