@@ -30,15 +30,20 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         public ActionResult Index(LoginModel login)
         {
             RaviUserModel model;
+            ALoginProcess loginSession;
+
             try
             {
+                loginSession = new UserLoginAbstractProcess();
+
                 string user = login.Name;
                 string pass = login.Password;
 
                 if(user == null) { ViewBag.ErrorMessage = "Wrong Usename";return View(); }
 
-                model = SessionHandler.ReadUserSession(user);
-                if(model == null) { ViewBag.ErrorMessage = "Wrong Usename"; return View(); }
+                //model = SessionHandler.ReadUserSession(user);
+                model = loginSession.ReadUserSession(user);
+                if (model == null) { ViewBag.ErrorMessage = "Wrong Usename"; return View(); }
 
                 string userId = model.Name;
                 string password = model.Password;
