@@ -1,9 +1,12 @@
-﻿using MVC.Samples.Web.Models;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
+using MVC.Samples.Data;
+using MVC.Samples.Web.Models;
 
 namespace MVC.Samples.Web.Controllers
 {
@@ -17,6 +20,10 @@ namespace MVC.Samples.Web.Controllers
             UserModel userModel;
             try
             {
+
+                MyDatabase myDatabase = new MyDatabase();
+                var a = myDatabase.userRegistrations.Where(exp => exp.UserName == "packiam").FirstOrDefault();
+
                 userModel = new UserModel();
                 userModel.CityList = GetCityList();
 

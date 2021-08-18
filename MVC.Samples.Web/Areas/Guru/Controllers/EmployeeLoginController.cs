@@ -11,6 +11,12 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
 {
     public class EmployeeLoginController : BaseController
     {
+        private readonly ILoginSession loginSessionObj;
+        public EmployeeLoginController(ILoginSession loginSessionObj)
+        {
+            this.loginSessionObj = loginSessionObj;
+        }
+
         // GET: Guru/EmployeeLogin
         public ActionResult Index()
         {
@@ -81,6 +87,10 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
             catch (Exception ex)
             {
                 return ErrorView(ex);
+            }
+            finally
+            {
+                loginSession = null;
             }
         }
 
