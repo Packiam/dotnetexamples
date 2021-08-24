@@ -1,4 +1,6 @@
-﻿using MVC.Samples.Data;
+﻿using MVC.Samples.BLL.Interfaces.Ravi;
+using MVC.Samples.BLL.Services.Ravi;
+using MVC.Samples.Data;
 using MVC.Samples.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,13 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
     public class CrudController : Controller
     {
         MyDatabase myDatabase = new MyDatabase();
+        private readonly IRegistration registration;
+        public CrudController(IRegistration registration)
+        {
+            //this.registration = new RegistrationService();
+            this.registration = registration;
+        }
+
         // GET: Guru/Crud
         public ActionResult Index()
         {
@@ -21,12 +30,18 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Create(UserRegistration objEmp)
         {
+            string message = registration.ValidateUser(objEmp);
+            if (!string.IsNullOrEmpty(message)) { ViewBag.ErrorMessage = message; return View(); }
+
+            //registration.SaveUser(objEmp);
             myDatabase.userRegistrations.Add(objEmp);
             myDatabase.SaveChanges();
             return View();
+
         }
         public ActionResult Details(string id)
         {

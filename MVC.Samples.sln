@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.Samples.Web", "MVC.Samp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.Samples.Data", "MVC.Samples.Data\MVC.Samples.Data.csproj", "{C66EFD88-21C1-41CC-AB1D-BAB2CF40252B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.Samples.BLL", "MVC.Samples.BLL\MVC.Samples.BLL.csproj", "{350DE4AA-D754-49DC-BC66-B8E690E2A162}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C66EFD88-21C1-41CC-AB1D-BAB2CF40252B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C66EFD88-21C1-41CC-AB1D-BAB2CF40252B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C66EFD88-21C1-41CC-AB1D-BAB2CF40252B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{350DE4AA-D754-49DC-BC66-B8E690E2A162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{350DE4AA-D754-49DC-BC66-B8E690E2A162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{350DE4AA-D754-49DC-BC66-B8E690E2A162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{350DE4AA-D754-49DC-BC66-B8E690E2A162}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

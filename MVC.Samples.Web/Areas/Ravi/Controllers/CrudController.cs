@@ -15,15 +15,25 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         // GET: Ravi/Crud
         public ActionResult Index()
         {
-            return View(myDatabase.userRegistrations.ToList());
+            try
+            {
+                return View(myDatabase.userRegistrations.ToList());
+            }
+            catch(Exception ex)
+            {
+                //Log the errors
+                ViewBag.Message = "Sorry, Some error occured while processing Main page.";
+                return View("Error");
+            }
         }
 
         public ActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
-        public ActionResult create(UserRegistration objEmp)
+        public ActionResult Create(UserRegistration objEmp)
         {
             myDatabase.userRegistrations.Add(objEmp);
             myDatabase.SaveChanges();
@@ -75,7 +85,6 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
             var emp = myDatabase.userRegistrations.Find(empId);
             myDatabase.userRegistrations.Remove(emp);
             myDatabase.SaveChanges();
-
             return View();
         }
     }
