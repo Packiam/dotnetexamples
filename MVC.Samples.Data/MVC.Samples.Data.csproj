@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Models\Guru\User.cs" />
     <Compile Include="Models\Ravi\User.cs" />
+    <Compile Include="Models\Ravi\UserLogin.cs" />
     <Compile Include="Models\UserRegistration.cs" />
     <Compile Include="MyDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

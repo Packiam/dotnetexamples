@@ -1,8 +1,9 @@
 ﻿@model MVC.Samples.Data.Models.UserRegistration
 
+
+
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Employee</h4>
     <hr />
     @using (Html.BeginForm())
     {
@@ -44,8 +45,13 @@
         </dl>
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Delete" class="btn btn-default" onclick="return ShowMessage();"/> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>  
+<script type="text/javascript">
+    function ShowMessage() {
+        alert("Delete success");
+    };
+</script>

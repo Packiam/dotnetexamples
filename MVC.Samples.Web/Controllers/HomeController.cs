@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using MVC.Samples.Data;
+using MVC.Samples.Data.Models;
 using MVC.Samples.Web.Models;
 
 namespace MVC.Samples.Web.Controllers
@@ -22,7 +23,8 @@ namespace MVC.Samples.Web.Controllers
             {
 
                 MyDatabase myDatabase = new MyDatabase();
-                var a = myDatabase.userRegistrations.Where(exp => exp.UserName == "packiam").FirstOrDefault();
+                //var a = myDatabase.userRegistrations.Where(exp => exp.UserName == "packiam").FirstOrDefault();
+                var a = myDatabase.userRegistrations.Where(exp => exp.UserName == "ravi").ToList();
 
                 userModel = new UserModel();
                 userModel.CityList = GetCityList();
@@ -68,14 +70,9 @@ namespace MVC.Samples.Web.Controllers
             return View();
         }
 
-        [Authorize]
-        public ActionResult About()
+        public ActionResult About(UserRegistration objEmp)
         {
-            string val1 = TempData["MyData"]?.ToString();
-            string session = Session["Session_MyData"]?.ToString();
-            ViewBag.Message = "Your application description page.";
-            ViewBag.SuccessMessage = "You logged In successfully";
-
+            
             return View();
         }
 

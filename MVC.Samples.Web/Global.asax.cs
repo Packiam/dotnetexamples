@@ -30,7 +30,7 @@ namespace MVC.Samples.Web
         {
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterGeneric(typeof(RegistrationService)).As(typeof(IRegistration)).InstancePerRequest();
+            builder.RegisterType<RegistrationService>().As(typeof(IRegistration)).InstancePerRequest();
 
 
 
