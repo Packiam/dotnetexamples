@@ -5,8 +5,8 @@ using System.Web.Routing;
 
 using Autofac;
 using Autofac.Integration.Mvc;
-using MVC.Samples.BLL.Interfaces.Ravi;
-using MVC.Samples.BLL.Services.Ravi;
+using MVC.Samples.Web.Areas.Guru;
+using MVC.Samples.Web.Areas.Ravi;
 
 namespace MVC.Samples.Web
 {
@@ -30,10 +30,9 @@ namespace MVC.Samples.Web
         {
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterType<RegistrationService>().As(typeof(IRegistration)).InstancePerRequest();
-
-
-
+            //builder.RegisterType<RegistrationService>().As(typeof(IRegistration)).InstancePerRequest();
+            GuruDataManager.AddDepandancies(builder);
+            RaviDataManager.AddDepandancies(builder);
 
             builder.RegisterFilterProvider();
             IContainer container = builder.Build();

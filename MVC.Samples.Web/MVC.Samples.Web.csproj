@@ -150,6 +150,7 @@
     <Compile Include="Areas\Guru\Controllers\EmployeeLoginController.cs" />
     <Compile Include="Areas\Guru\Controllers\HomeController.cs" />
     <Compile Include="Areas\Guru\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Guru\DataManager.cs" />
     <Compile Include="Areas\Guru\GuruAreaRegistration.cs" />
     <Compile Include="Areas\Guru\Models\GuruModel.cs" />
     <Compile Include="Areas\Guru\Models\LoginModel.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Areas\Ravi\Controllers\EmployeeLoginController.cs" />
     <Compile Include="Areas\Ravi\Controllers\HomeController.cs" />
     <Compile Include="Areas\Ravi\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Ravi\DataManager.cs" />
     <Compile Include="Areas\Ravi\Helper\SessionHandler.cs" />
     <Compile Include="Areas\Ravi\Models\LoginModel.cs" />
     <Compile Include="Areas\Ravi\Models\RaviUserModel.cs" />
