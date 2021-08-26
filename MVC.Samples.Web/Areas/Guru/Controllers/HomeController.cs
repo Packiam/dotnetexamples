@@ -32,14 +32,16 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public ActionResult Index(GuruModel guruModel)
         {
-            UserSessionHandler.AddUserSession(guruModel);
+            //UserSessionHandler.AddUserSession(guruModel);
 
             Session["UserId"] = guruModel.Name;
             Session["Password"] = guruModel.Password;
             Session["EmployeeId"] = guruModel.EmployeeCode;
             Session["Role"] = guruModel.EmployeeCode;
+            ViewBag.SuccessLogin = "Logged in Successfully";
             return RedirectToAction("Contact", "Home", new { area = "" });
             //DB Store the data.
         }

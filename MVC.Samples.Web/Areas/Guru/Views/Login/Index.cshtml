@@ -1,33 +1,49 @@
 ﻿@model MVC.Samples.Web.Areas.Guru.Models.LoginModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Login";
 }
 
-<h2 class="control-label  col-md-offset-4">Login Page</h2>
+<h2 class="control-label col-md-offset-4">Login</h2>
 @using (Html.BeginForm("Index", "Login", FormMethod.Post))
 {
-<table class="control-label  col-md-offset-4">
-    <tr>
-        <td>@Html.LabelFor(exp => exp.UserName)</td>
-        <td>@Html.TextBoxFor(exp => exp.UserName)</td>
-    </tr>
-    <tr>
-        <td>@Html.LabelFor(exp => exp.Password)</td>
-        <td>@Html.PasswordFor(exp => exp.Password)</td>
-    </tr>
-    <tr>
-        <td><label class="text-danger">@ViewBag.ErrorMessage</label></td>
-    </tr>
+    <table class="control-label  col-md-offset-4">
+        <tr>
+            <td>@Html.LabelFor(exp => exp.UserName)</td>
+            <td>@Html.TextBoxFor(exp => exp.UserName)</td>
 
-    <tr>
-        <td colspan="2">
-            <input type="submit" name="btn1" value="Login" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="1">
-            @Html.ValidationSummary()
-        </td>
-    </tr>
-</table>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.Password)</td>
+            <td>@Html.PasswordFor(exp => exp.Password)</td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="btn1" value="Login" onclick="return ShowMessage();" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label>Don't have an account?</label>
+                <input type="button" value="Register" onclick="@("window.location.href='" + @Url.Action("Create", "Crud") + "'");" />
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationSummary()
+            </td>
+        </tr>
+
+    </table>
 }
+<script type="text/javascript">
+        function ShowMessage() {
+            alert(@ViewBag.SuccessLogin);
+        };
+</script>
+
+
+
+
+<label class="text-danger">@ViewBag.ErrorMessage</label>

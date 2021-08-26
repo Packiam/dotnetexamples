@@ -6,13 +6,13 @@ namespace MVC.Samples.Web.Helper
 {
     public static class UserSessionHandler
     {
-        public static void AddUserSession(GuruModel model)
+        public static void AddUserSession(LoginModel model)
          {
-            List<GuruModel> models;
+            List<LoginModel> models;
             try
             {
-                if (HttpContext.Current.Session["USER_DATA"] == null) { models = new List<GuruModel>(); }
-                else { models = (List<GuruModel>)HttpContext.Current.Session["USER_DATA"]; }
+                if (HttpContext.Current.Session["USER_DATA"] == null) { models = new List<LoginModel>(); }
+                else { models = (List<LoginModel>)HttpContext.Current.Session["USER_DATA"]; }
                 models.Add(model);
                 HttpContext.Current.Session["USER_DATA"] = models;
             }

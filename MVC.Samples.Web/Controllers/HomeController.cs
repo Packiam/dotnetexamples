@@ -70,9 +70,9 @@ namespace MVC.Samples.Web.Controllers
             return View();
         }
 
-        public ActionResult About(UserRegistration objEmp)
+        public ActionResult About(String name)
         {
-            
+            ViewBag.SuccessMessage = "Welcome" +" "+ name;
             return View();
         }
 
