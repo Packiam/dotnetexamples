@@ -19,8 +19,8 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
             try
             {
                 ///if (!Session.IsNewSession) { Session.Clear(); }
-                TempData["MyData"] = "Guru";
-                Session["Session_MyData"] = "Guru Session";
+                //TempData["MyData"] = "Guru";
+                //Session["Session_MyData"] = "Guru Session";
                 return View();
             }
             catch (Exception ex)

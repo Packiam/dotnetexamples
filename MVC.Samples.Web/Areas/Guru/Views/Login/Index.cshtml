@@ -2,48 +2,61 @@
 @{
     ViewBag.Title = "Login";
 }
-
+<style>
+    td, tr {
+        padding: 5px;
+    }
+</style>
 <h2 class="control-label col-md-offset-4">Login</h2>
-@using (Html.BeginForm("Index", "Login", FormMethod.Post))
-{
-    <table class="control-label  col-md-offset-4">
-        <tr>
-            <td>@Html.LabelFor(exp => exp.UserName)</td>
-            <td>@Html.TextBoxFor(exp => exp.UserName)</td>
-
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(exp => exp.Password)</td>
-            <td>@Html.PasswordFor(exp => exp.Password)</td>
-        </tr>
-
-        <tr>
-            <td colspan="2">
-                <input type="submit" name="btn1" value="Login" onclick="return ShowMessage();" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <label>Don't have an account?</label>
-                <input type="button" value="Register" onclick="@("window.location.href='" + @Url.Action("Create", "Crud") + "'");" />
-
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                @Html.ValidationSummary()
-            </td>
-        </tr>
-
-    </table>
-}
+<div class="card">
+    @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <table class="control-label  col-md-offset-4">
+            <tr>
+                <td>@Html.LabelFor(exp => exp.UserName)</td>
+                <td>@Html.TextBoxFor(exp => exp.UserName)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(exp => exp.Password)</td>
+                <td>@Html.PasswordFor(exp => exp.Password)</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-right">
+                    <input type="submit" name="btn1" value="Login" onclick="return fnValidate();" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-right">
+                    <a href="@Url.Action("Create", "Crud")">Don't have an account?</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationSummary()
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+<label class="text-danger">@ViewBag.ErrorMessage</label>
 <script type="text/javascript">
-        function ShowMessage() {
-            alert(@ViewBag.SuccessLogin);
-        };
+    function fnValidate() {
+        if (!$("#UserName").val()) { alert("Kindly enter the username."); return false; }
+        else if (!$("#Password").val()) { alert("Kindly enter the username."); return false; }
+        return true;
+    }
+
+    function ShowMessage() {
+        alert(@ViewBag.SuccessLogin);
+        return false;
+    };
+
 </script>
 
-
-
-
-<label class="text-danger">@ViewBag.ErrorMessage</label>
+@*
+    1. Client Onclick -> If returns true the go-head else stops there.
+    2. Submit Event
+    3. Submit Method Trigger
+    4. Page Rerender
+*@

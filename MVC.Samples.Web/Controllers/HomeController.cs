@@ -21,18 +21,8 @@ namespace MVC.Samples.Web.Controllers
             UserModel userModel;
             try
             {
-
-                MyDatabase myDatabase = new MyDatabase();
-                //var a = myDatabase.userRegistrations.Where(exp => exp.UserName == "packiam").FirstOrDefault();
-                var a = myDatabase.userRegistrations.Where(exp => exp.UserName == "ravi").ToList();
-
                 userModel = new UserModel();
                 userModel.CityList = GetCityList();
-
-                string session = Session["Session_MyData"]?.ToString();
-
-                Console.WriteLine(id);
-                Console.WriteLine("I am getting started...");
                 ViewBag.MyData = "Packiam Jepakumar...";
                 TempData["mytempdata"] = "My Sample data...";
                 return View(userModel);

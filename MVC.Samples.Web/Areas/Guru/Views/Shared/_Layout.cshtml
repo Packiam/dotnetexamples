@@ -16,14 +16,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("AspDotNetPractice", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Guru Login Screen", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                @*<ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Register", "Index", "Home")</li>
                     <li>@Html.ActionLink("Login", "Index", "Login")</li>
                     <li>@Html.ActionLink("EmployeeLogin", "Index", "EmployeeLogin")</li>
-                </ul>
+                </ul>*@
+                <div class="pull-right" style="color:white; font-weight:bold; padding:15px;">
+                    @{ 
+                        if (Session["User_Name"] == null){ <b>Unknown</b> }
+                        else { <b>Welcome, @Session["User_Name"].ToString()</b>}
+                    }
+                </div>
             </div>
         </div>
     </div>
@@ -35,7 +41,6 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
