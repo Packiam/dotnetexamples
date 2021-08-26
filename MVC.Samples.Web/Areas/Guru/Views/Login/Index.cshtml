@@ -46,12 +46,12 @@
         else if (!$("#Password").val()) { alert("Kindly enter the username."); return false; }
         return true;
     }
-
-    function ShowMessage() {
-        alert(@ViewBag.SuccessLogin);
+    function ShowMessage(message) {
+        if (!message || message == "") { return;}
+        alert(message);
         return false;
     };
-
+    ShowMessage("@ViewBag.ErrorMessage");
 </script>
 
 @*
