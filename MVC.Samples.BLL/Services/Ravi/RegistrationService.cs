@@ -23,7 +23,11 @@ namespace MVC.Samples.BLL.Services.Ravi
         {
             string message = null;
             string sucess ="ok";
-            if (user.Password == null || user.Password.Length<4) { return message; }
+            if (user.Password == null || user.Password.Length<4) {
+                if (user.Age < 18 || user.Age >= 100) { 
+                    return message; 
+                }
+            }
             return sucess;
         }
 
@@ -70,12 +74,17 @@ namespace MVC.Samples.BLL.Services.Ravi
             return true;
         }
 
-        public string ValidateUser(UserRegistration user)
+        public string ValidateUser(UserLogin user)
         {
-            string message = null;
-            string success = "Your are eligble";
-            if(user.Age<18 || user.Age >= 100) { return message; }
-            return success;
+            string name = user.Name;
+            string pass = user.Password;
+            string message = "ok";
+            string fail = "fail";
+            if (myDatabase.userRegistrations.Any(x => x.Name == name) && myDatabase.userRegistrations.Any(x => x.Password == pass))
+            {
+                return message;
+            }
+            return fail;
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿using MVC.Samples.Web.Areas.Ravi.Helper;
+﻿using MVC.Samples.BLL.Interfaces.Ravi;
+using MVC.Samples.Data;
+using MVC.Samples.Data.Models;
+using MVC.Samples.Data.Models.Ravi;
+using MVC.Samples.Web.Areas.Ravi.Helper;
 using MVC.Samples.Web.Areas.Ravi.Models;
 using MVC.Samples.Web.Controllers;
 using System;
@@ -11,13 +15,18 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
 {
     public class LoginController : BaseController
     {
+        MyDatabase myDatabase = new MyDatabase();
+        private readonly IRegistration registration;
+
+        public LoginController(IRegistration registration)
+        {
+            this.registration = registration;
+        }
         // GET: Ravi/Login
         public ActionResult Index()
         {
             try
             {
-                TempData["MyData"] = "ravi";
-                Session["Session_MyData"] = "ravi Session";
                 return View();
             }
             catch (Exception ex)
@@ -27,9 +36,18 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(LoginModel login)
+        public ActionResult Index(UserLogin user)
         {
-            RaviUserModel model;
+            string name = user.Name;
+            if(registration.ValidateUser(user) == "ok")
+            {
+                Session["User_Name"] = user.Name;
+                ViewBag.SuccessLogin = "Logged in Successfully";
+                return RedirectToAction("Contact", "Home", new { area="Ravi" });
+            }
+            return View();
+
+           /* RaviUserModel model;
             ALoginProcess loginSession;
 
             try
@@ -63,7 +81,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
             catch (Exception ex)
             {
                 return ErrorView(ex);
-            }
+            } */
         }
     }
 }

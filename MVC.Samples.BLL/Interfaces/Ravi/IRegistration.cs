@@ -1,4 +1,5 @@
 ﻿using MVC.Samples.Data.Models;
+using MVC.Samples.Data.Models.Ravi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,6 @@ namespace MVC.Samples.BLL.Interfaces.Ravi
         string BasicValidations(UserRegistration user);
         bool EmpCodeValidation(string empCode);
         bool UserNameValidation(string userName);
-        string ValidateUser(UserRegistration user);
+        string ValidateUser(UserLogin user);
     }
 }

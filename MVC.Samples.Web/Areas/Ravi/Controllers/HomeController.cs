@@ -37,7 +37,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         [HttpPost]
         public ActionResult Index(RaviUserModel raviUser)
         {
-            SessionHandler.AddUserSession(raviUser);
+            //SessionHandler.AddUserSession(raviUser);
 
             Session["UserId"] = raviUser.Name;
             Session["Password"] = raviUser.Password;
@@ -55,6 +55,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         
         public ActionResult Contact()
         {
+
             return View();
         }
     }

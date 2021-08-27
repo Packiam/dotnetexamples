@@ -32,7 +32,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
             {
                 //Log the errors
                 ViewBag.Message = "Sorry, Some error occured while processing Main page.";
-                return View("Error");
+                return ErrorView(ex);
             }
         }
 
@@ -45,20 +45,18 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         public ActionResult Create(UserRegistration objEmp)
         {
             try {
-                string message = registration.ValidateUser(objEmp);
                 string errorMessage = registration.BasicValidations(objEmp);
                 string name = objEmp.Name;
                 string empCode = objEmp.EmpCode;
 
-                if (!string.IsNullOrEmpty(message))
+                if (!string.IsNullOrEmpty(errorMessage))
                 {
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
                         if (registration.UserNameValidation(name) != false && registration.EmpCodeValidation(empCode) != false)
                         {
-
                             registration.SaveUser(objEmp);
-                            return RedirectToAction("About", "Home", new { area = "" });
+                            return RedirectToAction("About", "Home", new { area = "Ravi" });
 
                         }
                         else { ViewBag.Error = "User Name or employee code already exit"; }

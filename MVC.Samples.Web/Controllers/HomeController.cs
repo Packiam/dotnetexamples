@@ -66,9 +66,9 @@ namespace MVC.Samples.Web.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contact(string name)
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Welcome"+" "+ name;
             string val1 = TempData["MyData"]?.ToString();
             string session = Session["Session_MyData"]?.ToString();
             return View();

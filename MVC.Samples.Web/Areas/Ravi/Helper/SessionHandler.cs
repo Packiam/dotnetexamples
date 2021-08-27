@@ -1,4 +1,5 @@
-﻿using MVC.Samples.Web.Areas.Ravi.Models;
+﻿using MVC.Samples.Data.Models.Ravi;
+using MVC.Samples.Web.Areas.Ravi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,13 @@ namespace MVC.Samples.Web.Areas.Ravi.Helper
 {
     public class SessionHandler
     {
-        public static void AddUserSession(RaviUserModel model)
+        public static void AddUserSession(UserLogin model)
         {
-            List<RaviUserModel> models;
+            List<UserLogin> models;
             try
             {
-                if(HttpContext.Current.Session["USER_DATA"] == null) { models = new List<RaviUserModel>(); }
-                else { models = (List<RaviUserModel>)HttpContext.Current.Session["USER_DATA"]; }
+                if(HttpContext.Current.Session["USER_DATA"] == null) { models = new List<UserLogin>(); }
+                else { models = (List<UserLogin>)HttpContext.Current.Session["USER_DATA"]; }
                 models.Add(model);
                 HttpContext.Current.Session["USER_DATA"] = models;
             }
