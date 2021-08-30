@@ -25,14 +25,8 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         // GET: Ravi/Login
         public ActionResult Index()
         {
-            try
-            {
-                return View();
-            }
-            catch (Exception ex)
-            {
-                return ErrorView(ex);
-            }
+            if (!Session.IsNewSession) { Session.Clear(); }
+            return View();
         }
 
         [HttpPost]

@@ -1,5 +1,7 @@
-﻿using MVC.Samples.Data.Models.Ravi;
+﻿using MVC.Samples.Data.Models;
+using MVC.Samples.Data.Models.Ravi;
 using MVC.Samples.Web.Areas.Ravi.Models;
+using MVC.Samples.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,22 @@ namespace MVC.Samples.Web.Areas.Ravi.Helper
                 else { models = (List<UserLogin>)HttpContext.Current.Session["USER_DATA"]; }
                 models.Add(model);
                 HttpContext.Current.Session["USER_DATA"] = models;
+            }
+            finally
+            {
+                models = null;
+            }
+        }
+
+        public static void AddRoleSession(MenuModel model)
+        {
+            List<MenuModel> models;
+            try
+            {
+                if (HttpContext.Current.Session["MenuDetails"] == null) { models = new List<MenuModel>(); }
+                else { models = (List<MenuModel>)HttpContext.Current.Session["MenuDetails"]; }
+                models.Add(model);
+                HttpContext.Current.Session["MenuDetails"] = models;
             }
             finally
             {

@@ -7,7 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MVC.Samples.Web.Controllers;
-
+using MVC.Samples.Web.Areas.Ravi.Helper;
+using MVC.Samples.Web.Models;
 
 namespace MVC.Samples.Web.Areas.Ravi.Controllers
 {
@@ -38,6 +39,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
 
         public ActionResult Create()
         {
+            if (!Session.IsNewSession) { Session.Clear(); }
             return View();
         }
 
@@ -48,29 +50,31 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
                 string errorMessage = registration.BasicValidations(objEmp);
                 string name = objEmp.Name;
                 string empCode = objEmp.EmpCode;
+                string role = objEmp.Role;
+
+                MenuModel menu = new MenuModel();
+                menu.MenuName = "MasterScreen";
+                menu.Action = "Index";
+                menu.ControllerName = "Crud";
 
                 if (!string.IsNullOrEmpty(errorMessage))
-                {
-                    if (!string.IsNullOrEmpty(errorMessage))
                     {
                         if (registration.UserNameValidation(name) != false && registration.EmpCodeValidation(empCode) != false)
                         {
+                            Session["User_Name"] = objEmp.Name;
                             registration.SaveUser(objEmp);
-                            return RedirectToAction("About", "Home", new { area = "Ravi" });
-
+                        SessionHandler.AddRoleSession(menu);
+                        return RedirectToAction("About", "Home", new { area = "Ravi" });
                         }
                         else { ViewBag.Error = "User Name or employee code already exit"; }
                     }
-                    else { ViewBag.Message = "Password Should be minimum 4 and not null"; return View(); }
-                }
-                else { ViewBag.ErrorMessage = "Age should be above 18 and below 100"; return View(); }
+                    else { ViewBag.Message = "Password Should be 4 characters or Age should be above 18 "; return View(); }
                 return View();
             } 
             catch (Exception err)
             {
                 return ErrorView(err);
             }
-
         }
 
         public ActionResult Details(string id)
@@ -116,7 +120,5 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
             }
             
         }
-
-
     }
 }

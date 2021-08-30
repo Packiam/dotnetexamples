@@ -20,12 +20,22 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    @{
+                        if (Session["MenuDetails"] != null)
+                        {
+                            var menu = (List<MVC.Samples.Web.Models.MenuModel>)HttpContext.Current.Session["MenuDetails"];
+                            foreach (var item in menu)
+                            {
+                                <li>@Html.ActionLink(item.MenuName, item.Action, item.ControllerName)</li>
+                            }
+                        }
+                    }
                 </ul>
 
                 <div class="pull-right" style="color:white; font-weight:bold; padding:15px;">
                     @{
                         if (Session["User_Name"] == null)
-                        { <b>Unknown</b> }
+                        { <a href="">Login</a> }
                         else
                         { <b>Welcome, @Session["User_Name"].ToString()</b>}
                     }
