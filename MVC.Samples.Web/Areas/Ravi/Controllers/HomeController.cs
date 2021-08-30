@@ -42,17 +42,18 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
             Session["UserId"] = raviUser.Name;
             Session["Password"] = raviUser.Password;
             Session["EmployeeId"] = raviUser.EmployeeCode;
-            Session["Role"] = raviUser.EmployeeCode;
 
             return RedirectToAction("Contact", "Home", new { area = "Ravi" });
         }
 
-       public ActionResult About()
+
+        [CustomAuthorize1("Admin", "EndUser")]
+        public ActionResult About()
         {
             return View();
         }
 
-        
+        [CustomAuthorize1("Admin", "EndUser")]
         public ActionResult Contact()
         {
 
