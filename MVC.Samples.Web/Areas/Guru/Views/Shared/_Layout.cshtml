@@ -41,7 +41,7 @@
                 <div class="pull-right" style="color:white; font-weight:bold; padding:15px;">
                     @{
                         if (Session["User_Name"] == null)
-                        { <b>Unknown</b> }
+                        { <a href="">Login</a> }
                         else
                         { <b>Welcome, @Session["User_Name"].ToString()</b>}
                     }

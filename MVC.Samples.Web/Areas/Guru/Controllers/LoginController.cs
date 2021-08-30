@@ -3,17 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MVC.Samples.BLL.Interfaces.Guru;
 using MVC.Samples.Data;
+using MVC.Samples.Data.Models.Guru;
 using MVC.Samples.Web.Areas.Guru.Models;
 using MVC.Samples.Web.Controllers;
 using MVC.Samples.Web.Helper;
+using MVC.Samples.Web.Models;
 
 namespace MVC.Samples.Web.Areas.Guru.Controllers
 {
     public class LoginController : BaseController
     {
-        // GET: Guru/LogIn
         MyDatabase myDatabase = new MyDatabase();
+        MenuModel menu = new MenuModel();
+        private readonly IRegistration registration;
+
+        public LoginController(IRegistration registration)
+        {
+            this.registration = registration;
+        }
+        // GET: Guru/LogIn
+
         public ActionResult Index()
         {
             try
@@ -72,46 +83,63 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         }*/
 
         [HttpPost]
-        public ActionResult Index(LoginModel login)
+        public ActionResult Index(UserLogin user)
         {
             //GuruModel model;
             //ALoginProcess loginSession;
-            try
+
+            //loginSession = new UserLoginAbstractProcess();
+            string name = user.Name;
+            string loginRole = Session["MenuDetails"]?.ToString();
+            if (!string.IsNullOrEmpty(loginRole))
             {
-                //loginSession = new UserLoginAbstractProcess();
-                string user = login.UserName;
-                string pass = login.Password;
-                if (user == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
-                if (myDatabase.userRegistrations.Any(x => x.Name == user) && myDatabase.userRegistrations.Any(x => x.Password == pass))
+                if (registration.ValidateUser(user) == "ok")
                 {
-                    UserSessionHandler.AddUserSession(login);
+                    Session["User_Name"] = name;
                     ViewBag.SuccessLogin = "Logged in Successfully";
-                    return RedirectToAction("Index", "Home", new { area = "Guru" });
+                    menu.MenuName = "MasterScreen";
+                    menu.Action = "Index";
+                    menu.ControllerName = "Crud";
+
+                    return RedirectToAction("Contact", "Home", new { area = "Ravi" });
+
                 }
-
-                //model = UserSessionHandler.ReadUserSession(user);
-                //model = loginSession.ReadUserSession(user);
-                /*if (model == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
-                string userId = model.Name;
-                string password = model.Password;*/
-
-                //string userId = Session["UserId"]?.ToString();
-                //string password = Session["Password"]?.ToString();
-                //string val = "admin";
-
-                /*if (user == null || pass == null) { return View(); }
-                if (user == userId && pass == password)
+                else if (registration.ValidateUser(user) == "Unauthorized Role")
                 {
-                    Session["LOGIN_USERNAME"] = "Guru, Admin";
-                    return RedirectToAction("Index", "Home", new { area = "Guru" });
-                }*/
-                ViewBag.ErrorMessage = "Wrong Password";
-                return View();
+
+                    menu.MenuName = "MyProfile";
+                    menu.Action = "Details";
+                    menu.ControllerName = "Crud";
+                }
             }
-            catch (Exception ex)
+           
+
+          
+            return View();
+
+
+            //model = UserSessionHandler.ReadUserSession(user);
+            //model = loginSession.ReadUserSession(user);
+            /*if (model == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
+            string userId = model.Name;
+            string password = model.Password;*/
+
+            //string userId = Session["UserId"]?.ToString();
+            //string password = Session["Password"]?.ToString();
+            //string val = "admin";
+
+            /*if (user == null || pass == null) { return View(); }
+            if (user == userId && pass == password)
             {
-                return ErrorView(ex);
-            }
+                Session["LOGIN_USERNAME"] = "Guru, Admin";
+                return RedirectToAction("Index", "Home", new { area = "Guru" });
+            }*/
+
+
+        }
+        public ActionResult MyProfile()
+        {
+            return View();
         }
 
 

@@ -22,7 +22,13 @@ namespace MVC.Samples.BLL.Services.Guru
         {
             string message = null;
             string sucess = "ok";
-            if (user.Password == null || user.Password.Length < 4) { return message; }
+            if (user.Password == null || user.Password.Length < 4)
+            {
+                if (user.Age < 18 || user.Age >= 100)
+                {
+                    return message;
+                }
+            }
             return sucess;
         }
 
@@ -69,12 +75,23 @@ namespace MVC.Samples.BLL.Services.Guru
             return true;
         }
 
-        public string ValidateUser(UserRegistration user)
+        public string ValidateUser(UserLogin user)
         {
-            string message = null;
-            string success = "Your are eligble";
-            if (user.Age < 18 || user.Age >= 100) { return message; }
-            return success;
+            string name = user.Name;
+            string pass = user.Password;
+            string success = "ok";
+            string message = "Unauthorized Role";
+            string fail = "fail";
+            string admin = "Admin";
+            if (myDatabase.userRegistrations.Any(x => x.UserName == name) && myDatabase.userRegistrations.Any(x => x.Password == pass))
+            {
+                if(myDatabase.userRegistrations.Find(x => x.Role == admin))
+                {
+                    return success;
+                }
+                return message;
+            }
+            return fail;
         }
     }
 }

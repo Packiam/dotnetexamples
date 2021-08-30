@@ -10,7 +10,7 @@ namespace MVC.Samples.Web.Areas.Guru.Models
     {
         [Required(ErrorMessage = "UserName requierd")]
        
-        public string UserName{ get; set; }
+        public string Name{ get; set; }
         [Required(ErrorMessage ="Password is required")]
         public string Password { get; set; }
         [Required]

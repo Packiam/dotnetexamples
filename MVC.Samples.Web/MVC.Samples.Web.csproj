@@ -213,6 +213,8 @@
     <Content Include="Areas\Guru\Views\Crud\Details.cshtml" />
     <Content Include="Areas\Guru\Views\Crud\Edit.cshtml" />
     <Content Include="Areas\Guru\Views\Crud\Delete.cshtml" />
+    <Content Include="Areas\Guru\Views\Login\MyProfile.cshtml" />
+    <Content Include="Areas\Guru\Views\Home\About.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
