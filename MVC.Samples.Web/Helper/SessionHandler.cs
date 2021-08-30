@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Collections.Generic;
 using MVC.Samples.Web.Areas.Guru.Models;
+using MVC.Samples.Web.Models;
 
 namespace MVC.Samples.Web.Helper
 {
@@ -21,6 +22,22 @@ namespace MVC.Samples.Web.Helper
                 models = null;
             }
         }
+        public static void AddRoleSession(MenuModel model)
+        {
+            List<MenuModel> models;
+            try
+            {
+                if (HttpContext.Current.Session["MenuDetails"] == null) { models = new List<MenuModel>(); }
+                else { models = (List<MenuModel>)HttpContext.Current.Session["MenuDetails"]; }
+                models.Add(model);
+                HttpContext.Current.Session["MenuDetails"] = models;
+            }
+            finally
+            {
+                models = null;
+            }
+        }
+
         public static GuruModel ReadUserSession(string userId)
         {
             List<GuruModel> models;

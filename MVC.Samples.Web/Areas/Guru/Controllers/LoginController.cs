@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MVC.Samples.BLL.Interfaces.Guru;
 using MVC.Samples.Data;
+using MVC.Samples.Data.Models.Guru;
 using MVC.Samples.Web.Areas.Guru.Models;
 using MVC.Samples.Web.Controllers;
 using MVC.Samples.Web.Helper;
@@ -12,8 +14,15 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
 {
     public class LoginController : BaseController
     {
-        // GET: Guru/LogIn
         MyDatabase myDatabase = new MyDatabase();
+        private readonly IRegistration registration;
+
+        public LoginController(IRegistration registration)
+        {
+            this.registration = registration;
+        }
+        // GET: Guru/LogIn
+        
         public ActionResult Index()
         {
             try
@@ -72,22 +81,21 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         }*/
 
         [HttpPost]
-        public ActionResult Index(LoginModel login)
+        public ActionResult Index(UserLogin user)
         {
             //GuruModel model;
             //ALoginProcess loginSession;
-            try
-            {
+            
                 //loginSession = new UserLoginAbstractProcess();
-                string user = login.UserName;
-                string pass = login.Password;
-                if (user == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
-                if (myDatabase.userRegistrations.Any(x => x.Name == user) && myDatabase.userRegistrations.Any(x => x.Password == pass))
+                string name = user.Name;
+                if (registration.ValidateUser(user) == "ok")
                 {
-                    UserSessionHandler.AddUserSession(login);
+                    Session["User_Name"] = user.Name;
                     ViewBag.SuccessLogin = "Logged in Successfully";
-                    return RedirectToAction("Index", "Home", new { area = "Guru" });
+                    return RedirectToAction("Contact", "Home", new { area = "Ravi" });
                 }
+                return View();
+
 
                 //model = UserSessionHandler.ReadUserSession(user);
                 //model = loginSession.ReadUserSession(user);
@@ -105,15 +113,14 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                     Session["LOGIN_USERNAME"] = "Guru, Admin";
                     return RedirectToAction("Index", "Home", new { area = "Guru" });
                 }*/
-                ViewBag.ErrorMessage = "Wrong Password";
-                return View();
-            }
-            catch (Exception ex)
-            {
-                return ErrorView(ex);
-            }
+                
+           
         }
-
+        public ActionResult MyProfile()
+        {
+            return View();
+        }
+       
 
 
 

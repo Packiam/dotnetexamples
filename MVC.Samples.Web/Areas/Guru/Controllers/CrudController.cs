@@ -2,7 +2,9 @@
 using MVC.Samples.BLL.Services.Guru;
 using MVC.Samples.Data;
 using MVC.Samples.Data.Models;
+using MVC.Samples.Web.Helper;
 using MVC.Samples.Web.Controllers;
+using MVC.Samples.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,10 +48,14 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         {
             try
             {
-                string message = registration.ValidateUser(objEmp);
+                string message = registration.BasicValidations(objEmp);
                 string errorMessage = registration.BasicValidations(objEmp);
                 string name = objEmp.Name;
                 string empCode = objEmp.EmpCode;
+                MenuModel menu = new MenuModel();
+                menu.MenuName = "MasterScreen";
+                menu.Action = "Index";
+                menu.ControllerName = "Crud";
 
                 if (!string.IsNullOrEmpty(message))
                 {
@@ -57,9 +63,10 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                     {
                         if (registration.UserNameValidation(name) != false && registration.EmpCodeValidation(empCode) != false)
                         {
-
+                            Session["User_Name"] = objEmp.Name;
                             registration.SaveUser(objEmp);
-                            return RedirectToAction("About", "Home", new { area = "" ,name=objEmp.Name});
+                            UserSessionHandler.AddRoleSession(menu);
+                            return RedirectToAction("About", "Home", new { area = "Guru" ,name=objEmp.Name});
 
                         }
                         else { ViewBag.Error = "User Name or employee code already exit"; }

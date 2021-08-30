@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MVC.Samples.Data;
+using MVC.Samples.Data.Models;
+using MVC.Samples.Web.Models;
+
 
 namespace MVC.Samples.Web.Areas.Guru.Controllers
 {
@@ -44,6 +48,11 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
             ViewBag.SuccessLogin = "Logged in Successfully";
             return RedirectToAction("Contact", "Home", new { area = "" });
             //DB Store the data.
+        }
+        public ActionResult About(String name)
+        {
+            ViewBag.SuccessMessage = "Welcome" + " " + name;
+            return View();
         }
 
         private List<SelectListItem> GetCityList()

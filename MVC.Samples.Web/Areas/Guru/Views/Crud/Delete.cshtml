@@ -8,41 +8,48 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <dl class="dl-horizontal">
-            @Html.HiddenFor(model => model.Id)
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+<dl class="dl-horizontal">
+    @Html.HiddenFor(model => model.Id)
+    <dt>
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Name)
+    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Address)
-            </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.Address)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Address)
-            </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Address)
+    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Age)
-            </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.Age)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Age)
-            </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Age)
+    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.EmpCode)
-            </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.EmpCode)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.EmpCode)
-            </dd>
+    <dd>
+        @Html.DisplayFor(model => model.EmpCode)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Role)
+    </dt>
 
-        </dl>
+    <dd>
+        @Html.DisplayFor(model => model.Role)
+    </dd>
+
+</dl>
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" onclick="return ShowMessage();" /> |
