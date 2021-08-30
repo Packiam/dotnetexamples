@@ -14,8 +14,8 @@
         @Html.AntiForgeryToken()
         <table class="control-label  col-md-offset-4">
             <tr>
-                <td>@Html.LabelFor(exp => exp.UserName)</td>
-                <td>@Html.TextBoxFor(exp => exp.UserName)</td>
+                <td>@Html.LabelFor(exp => exp.Name)</td>
+                <td>@Html.TextBoxFor(exp => exp.Name)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(exp => exp.Password)</td>
@@ -42,7 +42,7 @@
 <label class="text-danger">@ViewBag.ErrorMessage</label>
 <script type="text/javascript">
     function fnValidate() {
-        if (!$("#UserName").val()) { alert("Kindly enter the username."); return false; }
+        if (!$("#Name").val()) { alert("Kindly enter the username."); return false; }
         else if (!$("#Password").val()) { alert("Kindly enter the username."); return false; }
         return true;
     }

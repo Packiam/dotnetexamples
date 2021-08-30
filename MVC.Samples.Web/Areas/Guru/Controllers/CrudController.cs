@@ -51,12 +51,23 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                 string message = registration.BasicValidations(objEmp);
                 string errorMessage = registration.BasicValidations(objEmp);
                 string name = objEmp.Name;
+                string role = objEmp.Role;
                 string empCode = objEmp.EmpCode;
                 MenuModel menu = new MenuModel();
-                menu.MenuName = "MasterScreen";
-                menu.Action = "Index";
-                menu.ControllerName = "Crud";
-
+                if (role == "Admin"|| role=="EndUser")
+                {
+                    menu.MenuName = "MasterScreen";
+                    menu.Action = "Index";
+                    menu.ControllerName = "Crud";
+                    UserSessionHandler.AddRoleSession(menu);
+                }
+                else
+                {
+                    menu.MenuName = "MyProfile";
+                    menu.Action = "Details";
+                    menu.ControllerName = "Crud";
+                    UserSessionHandler.AddRoleSession(menu);
+                }
                 if (!string.IsNullOrEmpty(message))
                 {
                     if (!string.IsNullOrEmpty(errorMessage))
@@ -65,7 +76,6 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                         {
                             Session["User_Name"] = objEmp.Name;
                             registration.SaveUser(objEmp);
-                            UserSessionHandler.AddRoleSession(menu);
                             return RedirectToAction("About", "Home", new { area = "Guru" ,name=objEmp.Name});
 
                         }

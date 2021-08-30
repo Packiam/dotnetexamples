@@ -79,17 +79,18 @@ namespace MVC.Samples.BLL.Services.Guru
         {
             string name = user.Name;
             string pass = user.Password;
-            string message = "ok";
+            string success = "ok";
+            string message = "Unauthorized Role";
             string fail = "fail";
-            if (myDatabase.userRegistrations.Any(x => x.Name == name) && myDatabase.userRegistrations.Any(x => x.Password == pass))
+            string admin = "Admin";
+            if (myDatabase.userRegistrations.Any(x => x.UserName == name) && myDatabase.userRegistrations.Any(x => x.Password == pass))
             {
+                if(myDatabase.userRegistrations.Find(x => x.Role == admin))
+                {
+                    return success;
+                }
                 return message;
             }
-
-
-
-
-
             return fail;
         }
     }
