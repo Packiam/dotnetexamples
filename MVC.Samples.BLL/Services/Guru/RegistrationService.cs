@@ -20,25 +20,25 @@ namespace MVC.Samples.BLL.Services.Guru
 
         public string BasicValidations(UserRegistration user)
         {
-            string message = null;
-            string sucess = "ok";
-            if (user.Password == null || user.Password.Length < 4)
-            {
-                if (user.Age < 18 || user.Age >= 100)
-                {
-                    return message;
-                }
-            }
-            return sucess;
+            if (string.IsNullOrEmpty(user.Name)) { return "Name is mandatory"; }
+            else if (string.IsNullOrEmpty(user.Password)) { return "Password is mandatory"; }
+            else if (string.IsNullOrEmpty(user.EmpCode)) { return "Code is mandatory"; }
+            else if (string.IsNullOrEmpty(user.UserName)) { return "Username is mandatory"; }
+            else if (string.IsNullOrEmpty(user.Role)) { return "Role is mandatory"; }
+            //else if (user.Password == user.ConfirmPassword) { return "Password and Confirm Password should be equal."; }
+            else if (user.Age < 18 || user.Age > 60) { return "Invalid age."; }
+            else if (!EmpCodeValidation(user.EmpCode)) { return "Employee Code duplication."; }
+            else if (!UserNameValidation(user.Name)) { return "Username duplication."; }
+            return "";
         }
-
-        public bool EmpCodeValidation(string empCode)
+        private bool EmpCodeValidation(string empCode)
         {
-
-            if (myDatabase.userRegistrations.Any(x => x.EmpCode == empCode))
-            {
-                return false;
-            }
+            if (myDatabase.userRegistrations.Any(x => x.EmpCode == empCode)) { return false; }
+            return true;
+        }
+        private bool UserNameValidation(string userName)
+        {
+            if (myDatabase.userRegistrations.Any(x => x.Name == userName)){ return false; }
             return true;
         }
 
@@ -65,24 +65,28 @@ namespace MVC.Samples.BLL.Services.Guru
             return true;
         }
 
-        public bool UserNameValidation(string userName)
-        {
+        
 
-            if (myDatabase.userRegistrations.Any(x => x.Name == userName))
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public string ValidateUser(UserLogin user)
+        public string ValidateUser(UserLogin user, out UserRegistration userModel)
         {
+            /*
+             * 1. UserName is wrong. -> "Invalid Username."
+             * 2. UserName correct but Password is wrong. -> "Invalid Password."
+             * 3. Based on roles -> send menus.
+            */
             string name = user.Name;
             string pass = user.Password;
             string success = "ok";
             string message = "Unauthorized Role";
             string fail = "fail";
             string admin = "Admin";
+            userModel = null;
+            //UserRegistration userModel1 = myDatabase.userRegistrations.Where(x => x.UserName == name).FirstOrDefault();
+            //if (userModel1 == null) { return "Username is wrong."; }
+            //else if (userModel1.Password != user.Password) { return "Password is wrong."; }
+            //userModel = userModel1;
+            //return "";
+
             if (myDatabase.userRegistrations.Any(x => x.UserName == name) && myDatabase.userRegistrations.Any(x => x.Password == pass))
             {
                 if(myDatabase.userRegistrations.Any(x => x.Role == admin))

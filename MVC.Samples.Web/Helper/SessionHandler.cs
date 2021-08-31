@@ -8,7 +8,7 @@ namespace MVC.Samples.Web.Helper
     public static class UserSessionHandler
     {
         public static void AddUserSession(LoginModel model)
-         {
+        {
             List<LoginModel> models;
             try
             {
@@ -52,7 +52,7 @@ namespace MVC.Samples.Web.Helper
                 models = null;
             }
         }
-        public static GuruModel ReadUserSession(string employeeId,string password)
+        public static GuruModel ReadUserSession(string employeeId, string password)
         {
             List<GuruModel> models;
             try
@@ -65,6 +65,10 @@ namespace MVC.Samples.Web.Helper
             {
                 models = null;
             }
+        }
+        public static void ClearUserSession()
+        {
+            HttpContext.Current.Session["USER_DATA"] = new List<LoginModel>();
         }
 
     }

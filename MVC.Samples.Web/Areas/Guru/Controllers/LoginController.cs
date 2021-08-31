@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MVC.Samples.BLL.Interfaces.Guru;
 using MVC.Samples.Data;
+using MVC.Samples.Data.Models;
 using MVC.Samples.Data.Models.Guru;
 using MVC.Samples.Web.Areas.Guru.Models;
 using MVC.Samples.Web.Controllers;
@@ -40,60 +41,38 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
             }
         }
 
-        /*[HttpPost]
-        public ActionResult Index_Interface(LoginModel login)
-        {
-            GuruModel model;
-            ILoginSession loginSession;
-            try
-            {
-                loginSession = new UserLoginProcess();
-                string user = login.UserName;
-                string pass = login.Password;
-                if (user == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
-
-                //model = UserSessionHandler.ReadUserSession(user);
-                if (user == null || pass == null) { return View(); }
-                if (myDatabase.userRegistrations.Any(x => x.Name == user) && myDatabase.userRegistrations.Any(x => x.Password == pass)) {
-                    AddUserSession(GuruModel model);
-                    return RedirectToAction("Index", "Home", new { area = "Guru" });
-                }
-                model = loginSession.ReadUserSession(user);
-                if (model == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
-                string userId = model.Name;
-                string password = model.Password;
-
-                //string userId = Session["UserId"]?.ToString();
-                //string password = Session["Password"]?.ToString();
-                //string val = "admin";
-
-                //if (user == null || pass == null) { return View(); }
-                if (user == userId && pass == password)
-                {
-                    Session["LOGIN_USERNAME"] = "Guru, Admin";
-                    return RedirectToAction("Index", "Home", new { area = "Guru" });
-                }
-                ViewBag.ErrorMessage = "Wrong Password";
-                return View();
-            }
-            catch (Exception ex)
-            {
-                return ErrorView(ex);
-            }
-        }*/
-
         [HttpPost]
         public ActionResult Index(UserLogin user)
         {
-            //GuruModel model;
-            //ALoginProcess loginSession;
+            UserRegistration userModel = null;
+            //string message = registration.ValidateUser(user, out userModel);
+            //if (!string.IsNullOrEmpty(message)) { ViewBag.Message = message; return View(); }
+            //UserSessionHandler.ClearUserSession();
+            //if (userModel.Role == "Admin")
+            //{
+            //    UserSessionHandler.AddRoleSession(new MenuModel()
+            //    {
+            //        MenuName = "MasterScreen",
+            //        Action = "Index",
+            //        ControllerName = "Crud"
+            //    });
+            //}
+            //else if (userModel.Role == "EndUser")
+            //{
+            //    UserSessionHandler.AddRoleSession(new MenuModel()
+            //    {
+            //        MenuName = "MyProfile",
+            //        Action = "Details",
+            //        ControllerName = "Crud"
+            //    });
+            //}
+            // return RedirectToAction("Contact", "Home", new { area = "Ravi" });
 
-            //loginSession = new UserLoginAbstractProcess();
             string name = user.Name;
             string loginRole = Session["MenuDetails"]?.ToString();
             if (!string.IsNullOrEmpty(loginRole))
             {
-                if (registration.ValidateUser(user) == "ok")
+                if (registration.ValidateUser(user, out userModel) == "ok")
                 {
                     Session["User_Name"] = name;
                     ViewBag.SuccessLogin = "Logged in Successfully";
@@ -104,7 +83,7 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                     return RedirectToAction("Contact", "Home", new { area = "Ravi" });
 
                 }
-                else if (registration.ValidateUser(user) == "Unauthorized Role")
+                else if (registration.ValidateUser(user, out userModel) == "Unauthorized Role")
                 {
 
                     menu.MenuName = "MyProfile";
@@ -112,38 +91,12 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                     menu.ControllerName = "Crud";
                 }
             }
-           
-
-          
             return View();
-
-
-            //model = UserSessionHandler.ReadUserSession(user);
-            //model = loginSession.ReadUserSession(user);
-            /*if (model == null) { ViewBag.ErrorMessage = "Wrong Username"; return View(); }
-            string userId = model.Name;
-            string password = model.Password;*/
-
-            //string userId = Session["UserId"]?.ToString();
-            //string password = Session["Password"]?.ToString();
-            //string val = "admin";
-
-            /*if (user == null || pass == null) { return View(); }
-            if (user == userId && pass == password)
-            {
-                Session["LOGIN_USERNAME"] = "Guru, Admin";
-                return RedirectToAction("Index", "Home", new { area = "Guru" });
-            }*/
-
-
         }
+
         public ActionResult MyProfile()
         {
             return View();
         }
-
-
-
-
     }
 }

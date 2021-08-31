@@ -48,49 +48,81 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         {
             try
             {
+                /*
+                 * 1. Username mandatory.
+                 * 2. Password mandatory.
+                 * 3. Code, Name mandatory.
+                 * 4. Role Mandatory.
+                 * 5. Password and Confirm password has to be equal.
+                 * 6. Code duplication issue
+                 * 7. Username duplication.
+                */
                 string message = registration.BasicValidations(objEmp);
-                string errorMessage = registration.BasicValidations(objEmp);
-                string name = objEmp.Name;
-                string role = objEmp.Role;
-                string empCode = objEmp.EmpCode;
-                MenuModel menu = new MenuModel();
-                if (role == "Admin"|| role=="EndUser")
-                {
-                    menu.MenuName = "MasterScreen";
-                    menu.Action = "Index";
-                    menu.ControllerName = "Crud";
-                    UserSessionHandler.AddRoleSession(menu);
-                }
-                else
-                {
-                    menu.MenuName = "MyProfile";
-                    menu.Action = "Details";
-                    menu.ControllerName = "Crud";
-                    UserSessionHandler.AddRoleSession(menu);
-                }
-                if (!string.IsNullOrEmpty(message))
-                {
-                    if (!string.IsNullOrEmpty(errorMessage))
-                    {
-                        if (registration.UserNameValidation(name) != false && registration.EmpCodeValidation(empCode) != false)
-                        {
-                            Session["User_Name"] = objEmp.Name;
-                            registration.SaveUser(objEmp);
-                            return RedirectToAction("About", "Home", new { area = "Guru" ,name=objEmp.Name});
+                if (message != "") { ViewBag.ErrorMessage = message; return View(objEmp); }
 
-                        }
-                        else { ViewBag.Error = "User Name or employee code already exit"; }
-                    }
-                    else { ViewBag.Message = "Password Should be minimum 4 and not null"; return View(); }
+                registration.SaveUser(objEmp);
+                UserSessionHandler.ClearUserSession();
+
+                if (objEmp.Role == "Admin")
+                {
+                    UserSessionHandler.AddRoleSession(new MenuModel()
+                    {
+                        MenuName = "MasterScreen",
+                        Action = "Index",
+                        ControllerName = "Crud"
+                    });
                 }
-                else { ViewBag.ErrorMessage = "Age should be above 18 and below 100"; return View(); }
-                return View();
+                else if (objEmp.Role == "EndUser")
+                {
+                    UserSessionHandler.AddRoleSession(new MenuModel()
+                    {
+                        MenuName = "MyProfile",
+                        Action = "Details",
+                        ControllerName = "Crud"
+                    });
+                }
+                return RedirectToAction("About", "Home", new { area = "Guru", name = objEmp.Name });
+
+                //string name = objEmp.Name;
+                //string role = objEmp.Role;
+                //string empCode = objEmp.EmpCode;
+                //MenuModel menu = new MenuModel();
+                //if (role == "Admin"|| role=="EndUser")
+                //{
+                //    menu.MenuName = "MasterScreen";
+                //    menu.Action = "Index";
+                //    menu.ControllerName = "Crud";
+                //    UserSessionHandler.AddRoleSession(menu);
+                //}
+                //else
+                //{
+                //    menu.MenuName = "MyProfile";
+                //    menu.Action = "Details";
+                //    menu.ControllerName = "Crud";
+                //    UserSessionHandler.AddRoleSession(menu);
+                //}
+
+                //if (!string.IsNullOrEmpty(message))
+                //{
+                //    if (!string.IsNullOrEmpty(errorMessage))
+                //    {
+                //        if (registration.UserNameValidation(name) && registration.EmpCodeValidation(empCode))
+                //        {
+                //            Session["User_Name"] = objEmp.Name;
+                //            registration.SaveUser(objEmp);
+                //            return RedirectToAction("About", "Home", new { area = "Guru" ,name=objEmp.Name});
+                //        }
+                //        else { ViewBag.Error = "User Name or employee code already exit"; }
+                //    }
+                //    else { ViewBag.Message = "Password Should be minimum 4 and not null"; return View(); }
+                //}
+                //else { ViewBag.ErrorMessage = "Age should be above 18 and below 100"; return View(); }
+                //return View();
             }
             catch (Exception err)
             {
                 return ErrorView(err);
             }
-
         }
 
         public ActionResult Details(string id)
