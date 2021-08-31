@@ -53,18 +53,30 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
                 string role = objEmp.Role;
 
                 MenuModel menu = new MenuModel();
-                menu.MenuName = "MasterScreen";
-                menu.Action = "Index";
-                menu.ControllerName = "Crud";
+
+                if (role == "Admin" || role == "EndUser")
+                {
+                    menu.MenuName = "MasterScreen";
+                    menu.Action = "Index";
+                    menu.ControllerName = "Crud";
+                    SessionHandler.AddRoleSession(menu);
+                }
+                else
+                {
+                    menu.MenuName = "MyProfile";
+                    menu.Action = "Details";
+                    menu.ControllerName = "Crud";
+
+                }
 
                 if (!string.IsNullOrEmpty(errorMessage))
                     {
                         if (registration.UserNameValidation(name) != false && registration.EmpCodeValidation(empCode) != false)
                         {
                             Session["User_Name"] = objEmp.Name;
+                            Session["Role"] = objEmp.Role;
                             registration.SaveUser(objEmp);
-                        SessionHandler.AddRoleSession(menu);
-                        return RedirectToAction("About", "Home", new { area = "Ravi" });
+                            return RedirectToAction("About", "Home", new { area = "Ravi" });
                         }
                         else { ViewBag.Error = "User Name or employee code already exit"; }
                     }
