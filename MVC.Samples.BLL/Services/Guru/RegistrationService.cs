@@ -85,7 +85,7 @@ namespace MVC.Samples.BLL.Services.Guru
             string admin = "Admin";
             if (myDatabase.userRegistrations.Any(x => x.UserName == name) && myDatabase.userRegistrations.Any(x => x.Password == pass))
             {
-                if(myDatabase.userRegistrations.Find(x => x.Role == admin))
+                if(myDatabase.userRegistrations.Any(x => x.Role == admin))
                 {
                     return success;
                 }
