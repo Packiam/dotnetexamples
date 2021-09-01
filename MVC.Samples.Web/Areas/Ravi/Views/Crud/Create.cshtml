@@ -5,7 +5,12 @@
 }
 
 <style>
-    .form-group{
+    h2 {
+        padding-left: 50px;
+        font-family: 'Times New Roman';
+    }
+    .form-group {
+        font-family: 'Times New Roman';
         padding: 10px;
     }
 </style>
@@ -17,12 +22,10 @@
 <div class="form-horizontal">
     <h2>UserRegistration</h2>
     <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.EmpCode, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.EmpCode, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.EmpCode, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -30,7 +33,6 @@
         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -38,7 +40,6 @@
         @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -46,7 +47,13 @@
         @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ConformPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.PasswordFor(model => model.ConformPassword, new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 
@@ -54,7 +61,6 @@
         @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -62,7 +68,6 @@
         @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -70,7 +75,6 @@
         @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Role, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -85,28 +89,15 @@
             <a href="@Url.Action("Index", "Login")"> Have an account?</a>
         </div>
     </div>
+
 </div>
 }
-
-
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <label class="label-danger">@ViewBag.Error</label>
-    </div>
-</div>
 
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
         <label class="label-danger">@ViewBag.ErrorMessage</label>
     </div>
 </div>
-
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <label class="label-danger">@ViewBag.Message</label>
-    </div>
-</div>
-
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -13,13 +13,13 @@ namespace MVC.Samples.Data.Models
     {
         [Key]
         public long Id { get; set; }
-        [Required(ErrorMessage = "EmployeeCode is requierd")]
+       
         public string EmpCode { get; set; }
-        [Required]
         public string Name { get; set; }
         public string UserName { get; set; }
-        [Required(ErrorMessage = "Password is requierd")]
         public string Password { get; set; }
+        public string ConformPassword { get; set; }
+
         public int Age { get; set; }
         public string Address { get; set; }
         public string Role { get; set; }

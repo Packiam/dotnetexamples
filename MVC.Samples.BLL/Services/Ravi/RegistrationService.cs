@@ -21,23 +21,24 @@ namespace MVC.Samples.BLL.Services.Ravi
 
         public string BasicValidations(UserRegistration user)
         {
-            string message = null;
-            string sucess ="ok";
-            if (user.Password == null || user.Password.Length<4) {
-                if (user.Age < 18 || user.Age >= 100) { 
-                    return message; 
-                }
-            }
-            return sucess;
+            if (string.IsNullOrEmpty(user.EmpCode)) { return "Code is mandatory"; }
+            else if (string.IsNullOrEmpty(user.Name)) { return "Name is mandatory"; }
+            else if (string.IsNullOrEmpty(user.UserName)) { return "Username is mandatory"; }
+            else if (string.IsNullOrEmpty(user.Password)) { return "Password is mandatory"; }
+            else if (user.Password.Length < 4) { return "Password should be more than 4 characters"; }
+            else if (string.IsNullOrEmpty(user.ConformPassword)) { return "ConformPassword is mandatory"; }
+            else if (user.Password != user.ConformPassword) { return "Password and Confirm Password  does not match."; }
+            else if (user.Age < 18 || user.Age > 60) { return "Invalid age."; }
+            else if (string.IsNullOrEmpty(user.Role)) { return "Role is mandatory"; }
+            else if (!EmpCodeValidation(user.EmpCode)) { return "Employee Code duplication."; }
+            else if (!UserNameValidation(user.Name)) { return "Username duplication."; }
+            return "";
         }
 
         public bool EmpCodeValidation(string empCode)
         {
 
-            if (myDatabase.userRegistrations.Any(x => x.EmpCode == empCode))
-            {
-                return false;
-            }
+            if (myDatabase.userRegistrations.Any(x => x.EmpCode == empCode)) { return false; }
             return true;
         }
 
@@ -66,30 +67,24 @@ namespace MVC.Samples.BLL.Services.Ravi
 
         public bool UserNameValidation(string userName)
         {
-           
-            if (myDatabase.userRegistrations.Any(x => x.Name == userName))
-            {
-                return false;
-            }
+
+            if (myDatabase.userRegistrations.Any(x => x.Name == userName)) { return false; }
             return true;
         }
 
-        public string ValidateUser(UserLogin user)
+        public string ValidateUser(UserLogin user, out UserRegistration userModel)
         {
             string name = user.Name;
             string pass = user.Password;
-            string message = "ok";
-            string fail = "fail";
-            if (myDatabase.userRegistrations.Any(x => x.Name == name) && myDatabase.userRegistrations.Any(x => x.Password == pass))
-            {
-                return message;
-            }
 
-
-          
-
-
-            return fail;
+            userModel = null;
+            UserRegistration userModel1 = myDatabase.userRegistrations.Where(x => x.UserName == name).FirstOrDefault();
+            if (name == null) { return "UserName is requierd"; }
+            else if (pass == null) { return "Password is requierd"; }
+            else if (userModel1 == null) { return "Username is wrong."; }
+            else if (userModel1.Password != pass) { return "Password is wrong"; }
+            userModel = userModel1;
+            return "";
         }
     }
 }

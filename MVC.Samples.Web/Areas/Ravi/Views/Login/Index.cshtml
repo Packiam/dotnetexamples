@@ -4,8 +4,14 @@
 }
 
 <style>
+    h2 {
+        padding:10px;
+        font-family: 'Times New Roman';
+    }
+
     td, tr {
         padding: 10px;
+        font-family: 'Times New Roman' ;
     }
 </style>
 <h2 class="control-label col-md-offset-4">Login</h2>
@@ -34,10 +40,9 @@
     </tr>
     <tr>
         <td colspan="2" >
-            @Html.ValidationSummary()
+            <label class="text-danger">@ViewBag.Message</label>
         </td>
     </tr>
 </table>
 }
 
-<label class="text-danger">@ViewBag.ErrorMessage</label>

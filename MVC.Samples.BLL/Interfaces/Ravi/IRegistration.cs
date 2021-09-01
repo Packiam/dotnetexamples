@@ -15,6 +15,6 @@ namespace MVC.Samples.BLL.Interfaces.Ravi
         string BasicValidations(UserRegistration user);
         bool EmpCodeValidation(string empCode);
         bool UserNameValidation(string userName);
-        string ValidateUser(UserLogin user);
+        string ValidateUser(UserLogin user, out UserRegistration userModel);
     }
 }

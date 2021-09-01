@@ -46,47 +46,31 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         [HttpPost]
         public ActionResult Create(UserRegistration objEmp)
         {
-            try {
-                string errorMessage = registration.BasicValidations(objEmp);
-                string name = objEmp.Name;
-                string empCode = objEmp.EmpCode;
-                string role = objEmp.Role;
+            string message = registration.BasicValidations(objEmp);
+            if (message != "") { ViewBag.ErrorMessage = message; return View(objEmp); }
+            Session["Role"] = objEmp.Role;
+            Session["User_Name"] = objEmp.Name;
+            registration.SaveUser(objEmp);
 
-                MenuModel menu = new MenuModel();
-
-                if (role == "Admin" || role == "EndUser")
-                {
-                    menu.MenuName = "MasterScreen";
-                    menu.Action = "Index";
-                    menu.ControllerName = "Crud";
-                    SessionHandler.AddRoleSession(menu);
-                }
-                else
-                {
-                    menu.MenuName = "MyProfile";
-                    menu.Action = "Details";
-                    menu.ControllerName = "Crud";
-
-                }
-
-                if (!string.IsNullOrEmpty(errorMessage))
-                    {
-                        if (registration.UserNameValidation(name) != false && registration.EmpCodeValidation(empCode) != false)
-                        {
-                            Session["User_Name"] = objEmp.Name;
-                            Session["Role"] = objEmp.Role;
-                            registration.SaveUser(objEmp);
-                            return RedirectToAction("About", "Home", new { area = "Ravi" });
-                        }
-                        else { ViewBag.Error = "User Name or employee code already exit"; }
-                    }
-                    else { ViewBag.Message = "Password Should be 4 characters or Age should be above 18 "; return View(); }
-                return View();
-            } 
-            catch (Exception err)
+            if (objEmp.Role == "Admin")
             {
-                return ErrorView(err);
+                SessionHandler.AddRoleSession(new MenuModel()
+                {
+                    MenuName = "MasterScreen",
+                    Action = "Index",
+                    ControllerName = "Crud"
+                });
             }
+            else if (objEmp.Role == "EndUser")
+            {
+                SessionHandler.AddRoleSession(new MenuModel()
+                {
+                    MenuName = "MyProfile",
+                    Action = "Details",
+                    ControllerName = "Crud"
+                });
+            }
+            return RedirectToAction("About", "Home", new { area = "Ravi",});
         }
 
         public ActionResult Details(string id)

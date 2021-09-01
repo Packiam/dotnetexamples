@@ -5,6 +5,7 @@ using MVC.Samples.Data.Models.Ravi;
 using MVC.Samples.Web.Areas.Ravi.Helper;
 using MVC.Samples.Web.Areas.Ravi.Models;
 using MVC.Samples.Web.Controllers;
+using MVC.Samples.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,50 +33,31 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         [HttpPost]
         public ActionResult Index(UserLogin user)
         {
-            string name = user.Name;
-            if(registration.ValidateUser(user) == "ok")
+            UserRegistration userModel = null;
+            string message = registration.ValidateUser(user, out userModel);
+            if (!string.IsNullOrEmpty(message)) { ViewBag.Message = message; return View(); }
+            Session["Role"] = userModel.Role;
+            Session["User_Name"] = user.Name;
+            if (userModel.Role == "Admin")
             {
-                Session["User_Name"] = user.Name;
-                ViewBag.SuccessLogin = "Logged in Successfully";
-                return RedirectToAction("Contact", "Home", new { area="Ravi" });
+                SessionHandler.AddRoleSession(new MenuModel()
+                {
+                    MenuName = "MasterScreen",
+                    Action = "Index",
+                    ControllerName = "Crud"
+                });
             }
-            return View();
-
-           /* RaviUserModel model;
-            ALoginProcess loginSession;
-
-            try
+            else if (userModel.Role == "EndUser")
             {
-                loginSession = new UserLoginAbstractProcess();
-
-                string user = login.Name;
-                string pass = login.Password;
-
-                if(user == null) { ViewBag.ErrorMessage = "Wrong Usename";return View(); }
-
-                //model = SessionHandler.ReadUserSession(user);
-                model = loginSession.ReadUserSession(user);
-                if (model == null) { ViewBag.ErrorMessage = "Wrong Usename"; return View(); }
-
-                string userId = model.Name;
-                string password = model.Password;
-                
-
-
-                if(user == null || pass == null) { return View(); }
-                if (user == userId && pass == password) 
-                { 
-                    Session["LOGIN_USERNAME"] = "ravi,admin"; 
-                    return RedirectToAction("Contact", "Home", new { area = "Ravi" }); 
-                }
-
-                ViewBag.ErrorMessage = "Invalid Credentials";
-                return View();
+                SessionHandler.AddRoleSession(new MenuModel()
+                {
+                    MenuName = "MyProfile",
+                    Action = "Details",
+                    ControllerName = "Crud"
+                });
             }
-            catch (Exception ex)
-            {
-                return ErrorView(ex);
-            } */
+            
+            return RedirectToAction("Contact", "Home", new { area = "Ravi" });
         }
     }
 }
