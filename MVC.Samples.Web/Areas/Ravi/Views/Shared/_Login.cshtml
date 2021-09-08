@@ -1,0 +1,20 @@
+﻿@{
+    if (Session["User_Name"] == null)
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("Register", "Create", "Crud")</li>
+            <li>@Html.ActionLink("Log in", "Index", "Login")</li>
+        </ul>
+    }
+    else
+    {
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <b class="pull-right" style="color:white; font-weight:bold; padding:15px;">Welcome, @Session["User_Name"].ToString()</b>
+            </li>
+            <li><a href="@Url.Action("Index", "Home")">Log off</a></li>
+        </ul>
+    }
+}
+

@@ -14,15 +14,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         // GET: Guru/EmployeeLogin
         public ActionResult Index()
         {
-            try
-            {
-               
-                return View();
-            }
-            catch (Exception ex)
-            {
-                return ErrorView(ex);
-            }
+            return View();
         }
 
 

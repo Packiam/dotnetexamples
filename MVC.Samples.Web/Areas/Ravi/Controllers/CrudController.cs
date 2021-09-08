@@ -48,7 +48,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         {
             string message = registration.BasicValidations(objEmp);
             if (message != "") { ViewBag.ErrorMessage = message; return View(objEmp); }
-            Session["Role"] = objEmp.Role;
+            Session["Role"] = objEmp. Role;
             Session["User_Name"] = objEmp.Name;
             registration.SaveUser(objEmp);
 
@@ -60,6 +60,13 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
                     Action = "Index",
                     ControllerName = "Crud"
                 });
+                SessionHandler.AddRoleSession(new MenuModel()
+                {
+                    MenuName = "MyProfile",
+                    Action = "Details",
+                    ControllerName = "Crud"
+                });
+
             }
             else if (objEmp.Role == "EndUser")
             {
@@ -70,7 +77,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
                     ControllerName = "Crud"
                 });
             }
-            return RedirectToAction("About", "Home", new { area = "Ravi",});
+            return Json(new { result = "Redirect", url = Url.Action("About", "Home",new { area = "Ravi" }) });
         }
 
         public ActionResult Details(string id)

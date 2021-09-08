@@ -31,12 +31,12 @@ namespace MVC.Samples.BLL.Services.Guru
             else if (!UserNameValidation(user.Name)) { return "Username duplication."; }
             return "";
         }
-        private bool EmpCodeValidation(string empCode)
+        public bool EmpCodeValidation(string empCode)
         {
             if (myDatabase.userRegistrations.Any(x => x.EmpCode == empCode)) { return false; }
             return true;
         }
-        private bool UserNameValidation(string userName)
+        public bool UserNameValidation(string userName)
         {
             if (myDatabase.userRegistrations.Any(x => x.Name == userName)){ return false; }
             return true;

@@ -18,6 +18,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
             RaviUserModel raviuserModel;
             try
             {
+                if (!Session.IsNewSession) { Session.Clear(); }
                 raviuserModel = new RaviUserModel();
                
                 return View();

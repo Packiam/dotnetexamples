@@ -6,9 +6,16 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .navbar-inverse {
+            background-color: slateblue;
+            border-color: #eeeeee;
+        }
+    </style>
+  
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top navbar-default">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -32,15 +39,8 @@
 
                     }
                 </ul>
+                @Html.Partial("_Login")
 
-                <div class="pull-right" style="color:white; font-weight:bold; padding:15px;">
-                    @{
-                        if (Session["User_Name"] == null)
-                        { <a href=""></a> }
-                        else
-                        { <b>Welcome, @Session["User_Name"].ToString()</b>}
-                    }
-                </div>
             </div>
         </div>
     </div>
