@@ -17,7 +17,7 @@
 </style>
 
 
-<form id="regForm">
+<form id="regForm" onsubmit="return false;">
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         <h2>UserRegistration</h2>
@@ -106,16 +106,16 @@
 
         $(document).ready(function () {
             $("#btnSubmit").click(function () {
-
                 var data = $("#regForm");
-
                 $.ajax({
                     type: "POST", 
                     data: data,
                     dataType: "json",
                     success: function (response) {
+                        if (!response.Status) { alert(response.Message); return; }
                         if (response.result == 'Redirect') {
-                            window.location = response.url;
+                            //window.location = response.url;
+                            window.location = '@Url.Content("~/Ravi/Home/About")';
                             alert("Register successfully")
                         }
                     },

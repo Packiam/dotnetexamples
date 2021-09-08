@@ -17,7 +17,8 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         MyDatabase myDatabase = new MyDatabase();
         private readonly IRegistration registration;
 
-        public CrudController(IRegistration registration) {
+        public CrudController(IRegistration registration)
+        {
             this.registration = registration;
         }
 
@@ -29,7 +30,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
             {
                 return View(myDatabase.userRegistrations.ToList());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //Log the errors
                 ViewBag.Message = "Sorry, Some error occured while processing Main page.";
@@ -46,38 +47,49 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         [HttpPost]
         public ActionResult Create(UserRegistration objEmp)
         {
-            string message = registration.BasicValidations(objEmp);
-            if (message != "") { ViewBag.ErrorMessage = message; return View(objEmp); }
-            Session["Role"] = objEmp. Role;
-            Session["User_Name"] = objEmp.Name;
-            registration.SaveUser(objEmp);
-
-            if (objEmp.Role == "Admin")
+            try
             {
-                SessionHandler.AddRoleSession(new MenuModel()
+                string message = registration.BasicValidations(objEmp);
+                if (message != "") { ViewBag.ErrorMessage = message; return Json(new { Status = false, Message = message }); }
+                Session["Role"] = objEmp.Role;
+                Session["User_Name"] = objEmp.Name;
+                registration.SaveUser(objEmp);
+
+                if (objEmp.Role == "Admin")
                 {
-                    MenuName = "MasterScreen",
-                    Action = "Index",
-                    ControllerName = "Crud"
-                });
-                SessionHandler.AddRoleSession(new MenuModel()
+                    SessionHandler.AddRoleSession(new MenuModel()
+                    {
+                        MenuName = "MasterScreen",
+                        Action = "Index",
+                        ControllerName = "Crud"
+                    });
+                    SessionHandler.AddRoleSession(new MenuModel()
+                    {
+                        MenuName = "MyProfile",
+                        Action = "Details",
+                        ControllerName = "Crud"
+                    });
+
+                }
+                else if (objEmp.Role == "EndUser")
                 {
-                    MenuName = "MyProfile",
-                    Action = "Details",
-                    ControllerName = "Crud"
-                });
+                    SessionHandler.AddRoleSession(new MenuModel()
+                    {
+                        MenuName = "MyProfile",
+                        Action = "Details",
+                        ControllerName = "Crud"
+                    });
+                }
+                return Json(new { Status = true, result = "Redirect", url = Url.Action("About", "Home", new { area = "Ravi" }) });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = ex.Message, result = "Redirect", url = Url.Action("About", "Home", new { area = "Ravi" }) });
+            }
+            finally
+            {
 
             }
-            else if (objEmp.Role == "EndUser")
-            {
-                SessionHandler.AddRoleSession(new MenuModel()
-                {
-                    MenuName = "MyProfile",
-                    Action = "Details",
-                    ControllerName = "Crud"
-                });
-            }
-            return Json(new { result = "Redirect", url = Url.Action("About", "Home",new { area = "Ravi" }) });
         }
 
         public ActionResult Details(string id)
@@ -98,7 +110,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         public ActionResult Edit(UserRegistration userReg)
         {
             registration.UpdateUser(userReg);
-            return RedirectToAction("Details", "Crud", new { area = "Ravi" , id = userReg.Id });
+            return RedirectToAction("Details", "Crud", new { area = "Ravi", id = userReg.Id });
         }
 
         public ActionResult Delete(string id)
@@ -109,19 +121,21 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(string id,UserRegistration userReg)
+        public ActionResult Delete(string id, UserRegistration userReg)
         {
-            try {
+            try
+            {
                 int empId = Convert.ToInt32(id);
                 var emp = myDatabase.userRegistrations.Find(empId);
                 myDatabase.userRegistrations.Remove(emp);
                 myDatabase.SaveChanges();
                 return RedirectToAction("Index", "Login", new { area = "Ravi" });
-            } 
-            catch(Exception err) {
+            }
+            catch (Exception err)
+            {
                 return ErrorView(err);
             }
-            
+
         }
     }
 }
