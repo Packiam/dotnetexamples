@@ -45,7 +45,7 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(UserRegistration objEmp)
+        public JsonResult Create(UserRegistration objEmp)
         {
             try
             {

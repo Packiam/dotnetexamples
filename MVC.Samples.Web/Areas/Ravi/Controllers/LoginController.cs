@@ -46,6 +46,12 @@ namespace MVC.Samples.Web.Areas.Ravi.Controllers
                     Action = "Index",
                     ControllerName = "Crud"
                 });
+                SessionHandler.AddRoleSession(new MenuModel()
+                {
+                    MenuName = "MyProfile",
+                    Action = "Details",
+                    ControllerName = "Crud"
+                });
             }
             else if (userModel.Role == "EndUser")
             {

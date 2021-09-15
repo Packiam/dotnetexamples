@@ -215,7 +215,8 @@
     <Content Include="Areas\Guru\Views\Crud\Delete.cshtml" />
     <Content Include="Areas\Guru\Views\Login\MyProfile.cshtml" />
     <Content Include="Areas\Guru\Views\Home\About.cshtml" />
-    <Content Include="Areas\Ravi\Views\Shared\_Login.cshtml" />
+    <Content Include="Areas\Ravi\Views\Shared\_RegisterPartial.cshtml" />
+    <Content Include="Areas\Ravi\Views\Shared\_LoginPartial.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -257,9 +258,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>

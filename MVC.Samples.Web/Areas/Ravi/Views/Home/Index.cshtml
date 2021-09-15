@@ -1,6 +1,89 @@
-﻿@model MVC.Samples.Web.Areas.Ravi.Models.RaviUserModel
+﻿@model MVC.Samples.Data.Models.UserRegistration
 @{
     ViewBag.Title = "Index";
 }
 
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <button type="button"
+                        class="btn btn btn-primary btn-default pull-right" data-toggle="modal" data-target="#registerModal">
+                    Register
+                </button>
+
+                <button type="button" class="btn btn-primary btn-default pull-right" data-toggle="modal" data-target="#loginModal">
+                    Login
+                </button>
+
+                <div class="modal fade" tabindex="-1" role="dialog" id="registerModal"
+                     aria-labelledby="registerModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">
+                                    ×
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @{
+                                    Html.RenderPartial("_RegisterPartial");
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" tabindex="-1" role="dialog" id="loginModal"
+                     aria-labelledby="loginModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">
+                                    ×
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @{
+                                    Html.RenderPartial("_LoginPartial");
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <h2>Home Page</h2>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                var data = $("#regForm").serialize();
+                $.ajax({
+                    type: "POST",
+                    data: data,
+                    url: "/Ravi/Crud/Create",
+                    dataType: "json",
+                    success: function (response) {
+                        if (!response.Status) { alert(response.Message); return; }
+                        if (response.result == 'Redirect') {
+                            //window.location = response.url;
+                            window.location = '@Url.Content("~/Ravi/Home/About")';
+                            alert("Register successfully")
+                        }
+                    },
+                    error: function () {
+                        alert("Content load failed.");
+                    }
+                })
+            })
+        })
+    </script>
+}
