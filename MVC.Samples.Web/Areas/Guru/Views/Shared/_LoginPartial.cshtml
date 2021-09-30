@@ -1,0 +1,49 @@
+﻿@model MVC.Samples.Data.Models.Guru.UserLogin
+
+<style>
+    h2 {
+        padding: 10px;
+        font-family: 'Times New Roman';
+    }
+
+    table {
+        width: 100%;
+        max-width: 500px;
+        margin: 20px auto;
+        box-shadow: 1px 1px 2px rgba(0,0,0,0.125);
+        padding: 30px;
+    }
+
+    td, tr {
+        padding: 10px;
+        font-family: 'Times New Roman';
+    }
+</style>
+
+
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{
+    <table class="control-label  col-md-offset-4">
+        <tr>
+            <td>@Html.LabelFor(exp => exp.Name)</td>
+            <td>@Html.TextBoxFor(exp => exp.Name)</td>
+
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(exp => exp.Password)</td>
+            <td>@Html.PasswordFor(exp => exp.Password)</td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="btn1" value="Login" class="btn btn-primary" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label class="text-danger">@ViewBag.Message</label>
+            </td>
+        </tr>
+    </table>
+}
+

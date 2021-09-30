@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using MVC.Samples.Data;
 using MVC.Samples.Data.Models;
 using MVC.Samples.Web.Models;
-
+using MVC.Samples.Web.Controllers;
 
 namespace MVC.Samples.Web.Areas.Guru.Controllers
 {
@@ -36,19 +36,17 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
 
 
         [HttpPost]
-        [Authorize]
         public ActionResult Index(GuruModel guruModel)
         {
             //UserSessionHandler.AddUserSession(guruModel);
-
             Session["UserId"] = guruModel.Name;
             Session["Password"] = guruModel.Password;
             Session["EmployeeId"] = guruModel.EmployeeCode;
-            Session["Role"] = guruModel.EmployeeCode;
             ViewBag.SuccessLogin = "Logged in Successfully";
             return RedirectToAction("Contact", "Home", new { area = "" });
             //DB Store the data.
         }
+        [CustomAuthorize1("Admin", "EndUser")]
         public ActionResult About(String name)
         {
             ViewBag.SuccessMessage = "Welcome" + " " + name;

@@ -76,26 +76,27 @@ namespace MVC.Samples.BLL.Services.Guru
             */
             string name = user.Name;
             string pass = user.Password;
-            string success = "ok";
-            string message = "Unauthorized Role";
-            string fail = "fail";
-            string admin = "Admin";
+            //string success = "ok";
+            //string message = "Unauthorized Role";
+            //string fail = "fail";
+            //string admin = "Admin";
             userModel = null;
-            //UserRegistration userModel1 = myDatabase.userRegistrations.Where(x => x.UserName == name).FirstOrDefault();
-            //if (userModel1 == null) { return "Username is wrong."; }
-            //else if (userModel1.Password != user.Password) { return "Password is wrong."; }
-            //userModel = userModel1;
-            //return "";
+            UserRegistration userModel1 = myDatabase.userRegistrations.Where(x => x.UserName == name).FirstOrDefault();
+            if (name == null) { return "Username is Required."; }
+            if (pass == null) { return "Password is Required."; }
+            else if (userModel1.Password != user.Password) { return "Password is wrong."; }
+            userModel = userModel1;
+            return "";
 
-            if (myDatabase.userRegistrations.Any(x => x.UserName == name) && myDatabase.userRegistrations.Any(x => x.Password == pass))
-            {
-                if(myDatabase.userRegistrations.Any(x => x.Role == admin))
-                {
-                    return success;
-                }
-                return message;
-            }
-            return fail;
+            //if (myDatabase.userRegistrations.Any(x => x.UserName == name) && myDatabase.userRegistrations.Any(x => x.Password == pass))
+            //{
+            //    if(myDatabase.userRegistrations.Any(x => x.Role == admin))
+            //    {
+            //        return success;
+            //    }
+            //    return message;
+            //}
+            //return fail;
         }
     }
 }

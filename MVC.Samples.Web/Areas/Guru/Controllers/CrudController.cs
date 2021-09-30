@@ -34,34 +34,27 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
             {
                 //Log the errors
                 ViewBag.Message = "Sorry, Some error occured while processing Main page.";
-                return View("Error");
+                return ErrorView(ex);
             }
         }
 
         public ActionResult Create()
         {
+
+            if (!Session.IsNewSession) { Session.Clear(); }
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(UserRegistration objEmp)
+        public JsonResult Create(UserRegistration objEmp)
         {
             try
             {
-                /*
-                 * 1. Username mandatory.
-                 * 2. Password mandatory.
-                 * 3. Code, Name mandatory.
-                 * 4. Role Mandatory.
-                 * 5. Password and Confirm password has to be equal.
-                 * 6. Code duplication issue
-                 * 7. Username duplication.
-                */
                 string message = registration.BasicValidations(objEmp);
-                if (message != "") { ViewBag.ErrorMessage = message; return View(objEmp); }
-
+                if (message != "") { ViewBag.ErrorMessage = message; return Json(new { Status = false, Message = message }); }
+                Session["Role"] = objEmp.Role;
+                Session["User_Name"] = objEmp.Name;
                 registration.SaveUser(objEmp);
-                UserSessionHandler.ClearUserSession();
 
                 if (objEmp.Role == "Admin")
                 {
@@ -71,6 +64,13 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                         Action = "Index",
                         ControllerName = "Crud"
                     });
+                    UserSessionHandler.AddRoleSession(new MenuModel()
+                    {
+                        MenuName = "MyProfile",
+                        Action = "Details",
+                        ControllerName = "Crud"
+                    });
+
                 }
                 else if (objEmp.Role == "EndUser")
                 {
@@ -81,47 +81,15 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
                         ControllerName = "Crud"
                     });
                 }
-                return RedirectToAction("About", "Home", new { area = "Guru", name = objEmp.Name });
-
-                //string name = objEmp.Name;
-                //string role = objEmp.Role;
-                //string empCode = objEmp.EmpCode;
-                //MenuModel menu = new MenuModel();
-                //if (role == "Admin"|| role=="EndUser")
-                //{
-                //    menu.MenuName = "MasterScreen";
-                //    menu.Action = "Index";
-                //    menu.ControllerName = "Crud";
-                //    UserSessionHandler.AddRoleSession(menu);
-                //}
-                //else
-                //{
-                //    menu.MenuName = "MyProfile";
-                //    menu.Action = "Details";
-                //    menu.ControllerName = "Crud";
-                //    UserSessionHandler.AddRoleSession(menu);
-                //}
-
-                //if (!string.IsNullOrEmpty(message))
-                //{
-                //    if (!string.IsNullOrEmpty(errorMessage))
-                //    {
-                //        if (registration.UserNameValidation(name) && registration.EmpCodeValidation(empCode))
-                //        {
-                //            Session["User_Name"] = objEmp.Name;
-                //            registration.SaveUser(objEmp);
-                //            return RedirectToAction("About", "Home", new { area = "Guru" ,name=objEmp.Name});
-                //        }
-                //        else { ViewBag.Error = "User Name or employee code already exit"; }
-                //    }
-                //    else { ViewBag.Message = "Password Should be minimum 4 and not null"; return View(); }
-                //}
-                //else { ViewBag.ErrorMessage = "Age should be above 18 and below 100"; return View(); }
-                //return View();
+                return Json(new { Status = true, result = "Redirect", url = Url.Action("About", "Home", new { area = "Guru" }) });
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                return ErrorView(err);
+                return Json(new { Status = false, Message = ex.Message, result = "Redirect", url = Url.Action("About", "Home", new { area = "Guru" }) });
+            }
+            finally
+            {
+
             }
         }
 

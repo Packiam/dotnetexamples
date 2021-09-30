@@ -1,62 +1,28 @@
-﻿@model MVC.Samples.Web.Areas.Guru.Models.LoginModel
+﻿
 @{
     ViewBag.Title = "Login";
 }
-<style>
-    td, tr {
-        padding: 5px;
-    }
-</style>
-<h2 class="control-label col-md-offset-4">Login</h2>
-<div class="card">
-    @using (Html.BeginForm("Index", "Login", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        <table class="control-label  col-md-offset-4">
-            <tr>
-                <td>@Html.LabelFor(exp => exp.Name)</td>
-                <td>@Html.TextBoxFor(exp => exp.Name)</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(exp => exp.Password)</td>
-                <td>@Html.PasswordFor(exp => exp.Password)</td>
-            </tr>
-            <tr>
-                <td colspan="2" class="text-right">
-                    <input type="submit" name="btn1" value="Login" onclick="return fnValidate();" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="text-right">
-                    <a href="@Url.Action("Create", "Crud")">Don't have an account?</a>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    @Html.ValidationSummary()
-                </td>
-            </tr>
-        </table>
-    }
-</div>
-<label class="text-danger">@ViewBag.ErrorMessage</label>
-<script type="text/javascript">
-    function fnValidate() {
-        if (!$("#Name").val()) { alert("Kindly enter the username."); return false; }
-        else if (!$("#Password").val()) { alert("Kindly enter the username."); return false; }
-        return true;
-    }
-    function ShowMessage(message) {
-        if (!message || message == "") { return;}
-        alert("Logged In");
-        return false;
-    };
-    ShowMessage("@ViewBag.ErrorMessage");
-</script>
 
-@*
-    1. Client Onclick -> If returns true the go-head else stops there.
-    2. Submit Event
-    3. Submit Method Trigger
-    4. Page Rerender
-*@
+@section Scripts{
+    <script type="text/javascript">
+
+         $(document).ready(function () {
+             $("#btnSubmit").click(function () {
+                 var userregistration = new Object();
+                 userregistration.UserName = $('#UserName').val();
+                 $.ajax({
+                     url: 'http://localhost:44368/User',
+                     type: 'POST',
+                     dataType: 'json',
+                     data: userregistration,
+                     success: function (data, textStatus, xhr) {
+                         console.log(data);
+                     },
+                     error: function (xhr, textStatus, errorThrown) {
+                         console.log('Error in Operation');
+                     }
+                 });
+             });
+         });
+    </script>
+}

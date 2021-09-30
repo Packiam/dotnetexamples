@@ -45,53 +45,54 @@ namespace MVC.Samples.Web.Areas.Guru.Controllers
         public ActionResult Index(UserLogin user)
         {
             UserRegistration userModel = null;
-            //string message = registration.ValidateUser(user, out userModel);
-            //if (!string.IsNullOrEmpty(message)) { ViewBag.Message = message; return View(); }
-            //UserSessionHandler.ClearUserSession();
-            //if (userModel.Role == "Admin")
-            //{
-            //    UserSessionHandler.AddRoleSession(new MenuModel()
-            //    {
-            //        MenuName = "MasterScreen",
-            //        Action = "Index",
-            //        ControllerName = "Crud"
-            //    });
-            //}
-            //else if (userModel.Role == "EndUser")
-            //{
-            //    UserSessionHandler.AddRoleSession(new MenuModel()
-            //    {
-            //        MenuName = "MyProfile",
-            //        Action = "Details",
-            //        ControllerName = "Crud"
-            //    });
-            //}
-            // return RedirectToAction("Contact", "Home", new { area = "Ravi" });
-
-            string name = user.Name;
-            string loginRole = Session["MenuDetails"]?.ToString();
-            if (!string.IsNullOrEmpty(loginRole))
+            string message = registration.ValidateUser(user, out userModel);
+            if (!string.IsNullOrEmpty(message)) { ViewBag.Message = message; return View(); }
+            Session["Role"] = userModel.Role;
+            UserSessionHandler.ClearUserSession();
+            if (userModel.Role == "Admin")
             {
-                if (registration.ValidateUser(user, out userModel) == "ok")
+                UserSessionHandler.AddRoleSession(new MenuModel()
                 {
-                    Session["User_Name"] = name;
-                    ViewBag.SuccessLogin = "Logged in Successfully";
-                    menu.MenuName = "MasterScreen";
-                    menu.Action = "Index";
-                    menu.ControllerName = "Crud";
-
-                    return RedirectToAction("Contact", "Home", new { area = "Ravi" });
-
-                }
-                else if (registration.ValidateUser(user, out userModel) == "Unauthorized Role")
-                {
-
-                    menu.MenuName = "MyProfile";
-                    menu.Action = "Details";
-                    menu.ControllerName = "Crud";
-                }
+                    MenuName = "MasterScreen",
+                    Action = "Index",
+                    ControllerName = "Crud"
+                });
             }
-            return View();
+            else if (userModel.Role == "EndUser")
+            {
+                UserSessionHandler.AddRoleSession(new MenuModel()
+                {
+                    MenuName = "MyProfile",
+                    Action = "Details",
+                    ControllerName = "Crud"
+                });
+            }
+            return RedirectToAction("About", "Home", new { area = "Guru" , name=userModel.Name });
+
+            //string name = user.Name;
+            //string loginRole = Session["MenuDetails"]?.ToString();
+            //if (!string.IsNullOrEmpty(loginRole))
+            //{
+            //    if (registration.ValidateUser(user, out userModel) == "ok")
+            //    {
+            //        Session["User_Name"] = name;
+            //        ViewBag.SuccessLogin = "Logged in Successfully";
+            //        menu.MenuName = "MasterScreen";
+            //        menu.Action = "Index";
+            //        menu.ControllerName = "Crud";
+
+            //        return RedirectToAction("Contact", "Home", new { area = "Ravi" });
+
+        //}
+        //        else if (registration.ValidateUser(user, out userModel) == "Unauthorized Role")
+        //        {
+
+        //            menu.MenuName = "MyProfile";
+        //            menu.Action = "Details";
+        //            menu.ControllerName = "Crud";
+        //        }
+        //    }
+        //    return View();
         }
 
         public ActionResult MyProfile()
